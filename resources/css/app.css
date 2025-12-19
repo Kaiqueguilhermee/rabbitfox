@@ -407,6 +407,54 @@
     }
 }
 
+/* Wallet card styles */
+.wallet-card {
+    background: linear-gradient(180deg, #0f1720 0%, #121518 100%);
+    border: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    align-items: stretch;
+}
+.wallet-card-body {
+    min-width: 0;
+}
+.wallet-card-figure {
+    min-width: 220px;
+    max-width: 260px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+}
+.wallet-img {
+    max-width: 160px;
+    opacity: 0.95;
+}
+.wallet-balance {
+    font-size: 1.6rem;
+    color: #ffffff;
+    margin: 0;
+    font-weight: 700;
+}
+.wallet-subvalue {
+    color: #d1d5db;
+    font-size: 1rem;
+}
+.wallet-actions .btn {
+    padding: 0.6rem 0.8rem;
+    border-radius: .6rem;
+}
+.wallet-actions .btn-outline-success {
+    color: #65cb24;
+    border-color: rgba(101,203,36,0.18);
+    background: transparent;
+}
+.wallet-actions .btn-success {
+    background: linear-gradient(90deg,#2bb673,#1f9c53);
+    border: none;
+}
+
+@media (max-width: 992px) {
+    .wallet-card-figure { display: none !important; }
+}
+
+
 .last-winner-item {
     flex-shrink: 0;
     width: 160px;

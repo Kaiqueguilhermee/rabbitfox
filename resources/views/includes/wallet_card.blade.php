@@ -1,71 +1,63 @@
 <div class="wallet">
     <div class="row">
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-6">
-                            <h5 class="mb-0"><strong>CARTEIRA</strong></h5>
+        <div class="col-12">
+            <div class="wallet-card d-flex align-items-stretch shadow-sm rounded-3 overflow-hidden">
+                <div class="wallet-card-body p-4 flex-grow-1">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h6 class="mb-1 text-muted small">CARTEIRA</h6>
+                            <div class="d-flex align-items-baseline gap-2">
+                                <h2 class="wallet-balance mb-0">
+                                    @if(auth()->user()->wallet->hide_balance == 1)
+                                        ****
+                                    @else
+                                        {{ \Helper::amountFormatDecimal(auth()->user()->wallet->balance) }}
+                                    @endif
+                                </h2>
+                                <small class="text-muted">BRL</small>
+                            </div>
                         </div>
-                        <div class="col-6">
-                            <a href="{{ route('panel.wallet.hidebalance') }}" class=" float-end">
+
+                        <div class="text-end">
+                            <a href="{{ route('panel.wallet.hidebalance') }}" class="btn btn-sm btn-outline-secondary" aria-label="Alternar visibilidade do saldo">
                                 <i class="fa-regular fa-eye"></i>
                             </a>
                         </div>
                     </div>
+
+                    <div class="row mt-3 gx-3">
+                        <div class="col-6">
+                            <div class="text-muted small">Bônus</div>
+                            <div class="fw-semibold wallet-subvalue">
+                                @if(auth()->user()->wallet->hide_balance == 1)
+                                    ****
+                                @else
+                                    {{ \Helper::amountFormatDecimal(auth()->user()->wallet->balance_bonus) }}
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-muted small">Prêmios</div>
+                            <div class="fw-semibold wallet-subvalue">
+                                @if(auth()->user()->wallet->hide_balance == 1)
+                                    ****
+                                @else
+                                    {{ \Helper::amountFormatDecimal(auth()->user()->wallet->refer_rewards) }}
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="wallet-actions d-flex gap-3 mt-4">
+                        <button data-izimodal-open="#deposit-modal" data-izimodal-zindex="20000" data-izimodal-preventclose="" class="btn btn-outline-success flex-fill" type="button">DEPOSITAR</button>
+                        <button @if(!(auth()->user()->wallet->balance > 0)) disabled="disabled" @endif data-izimodal-open="#withdrawal-modal" data-izimodal-zindex="20000" data-izimodal-preventclose="" class="btn btn-success flex-fill" type="button">SACAR</button>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="balance">
-                        <p class="mb-0">SALDO</p>
-                        <h1 class="show_balance">
-                            @if(auth()->user()->wallet->hide_balance == 1)
-                                ****
-                            @else
-                                <strong class="text-money">{{ \Helper::amountFormatDecimal(auth()->user()->wallet->balance) }}</strong>
-                            @endif
-                        </h1>
-                    </div>
 
-                    <div class="row mt-3">
-                        <div class="col-lg-6">
-                            <small>Bônus</small>
-                            <h5>
-                                @if(auth()->user()->wallet->hide_balance == 1)
-                                    ****
-                                @else
-                                    <strong class="text-money">{{ \Helper::amountFormatDecimal(auth()->user()->wallet->balance_bonus) }}</strong>
-                                @endif
-                            </h5>
-                        </div>
-                        <div class="col-lg-6">
-                            <small>Prêmios</small>
-                            <h5>
-                                @if(auth()->user()->wallet->hide_balance == 1)
-                                    ****
-                                @else
-                                    <strong class="text-money">{{ \Helper::amountFormatDecimal(auth()->user()->wallet->refer_rewards) }}</strong>
-                                @endif
-                            </h5>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="d-grid mt-4">
-                                <button data-izimodal-open="#deposit-modal" data-izimodal-zindex="20000" data-izimodal-preventclose="" class="btn btn-outline-success" type="button">DEPOSITAR</button>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="d-grid mt-4">
-                                <button @if(!(auth()->user()->wallet->balance > 0)) disabled="disabled" @endif data-izimodal-open="#withdrawal-modal" data-izimodal-zindex="20000" data-izimodal-preventclose="" class="btn btn-success" type="button">SACAR</button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="wallet-card-figure d-none d-lg-flex align-items-center justify-content-center p-3 bg-light">
+                    <img src="{{ asset('assets/images/pix.png') }}" alt="Pagamento" class="img-fluid wallet-img">
                 </div>
             </div>
-        </div>
-        <div class="col-lg-6">
-            <img src="{{ asset('assets/images/pix.png') }}" alt="" class="img-fluid">
         </div>
     </div>
 </div>
