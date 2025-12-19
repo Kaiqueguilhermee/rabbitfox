@@ -1,6 +1,7 @@
 <!-- Bootstrap Offcanvas Sidebar -->
 <div>
-    <!-- Toggle button (mobile) -->
+
+
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasSidebarLabel">Menu</h5>

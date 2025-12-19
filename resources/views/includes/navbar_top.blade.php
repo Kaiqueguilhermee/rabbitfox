@@ -5,10 +5,9 @@
                 <img src="{{ asset('storage/'.config('setting')['software_logo_white']) }}" alt="" style="max-width:100%; height: 50px">
             </a>
 
-     <button class="text-heading bg-transparent  focus:ring-4 focus:ring-neutral-tertiary font-medium leading-5 rounded-md ms-3 mt-3 text-sm p-2 focus:outline-none inline-flex sm:hidden" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
-        <span class="sr-only">Open sidebar</span>
+*/            <button class="navbar-toggler-close close-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
                 <img src="{{ asset('/assets/images/svg/menu-nav.svg') }}" alt="" width="28">
-            </button>
+            </button>/
         </div>
 
         @if(!empty(config('setting')['instagram']))
