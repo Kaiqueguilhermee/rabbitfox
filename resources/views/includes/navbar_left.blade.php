@@ -61,13 +61,26 @@
     </div>
 </nav>
 <script>
+let scrollPosition = 0;
+
 function openSidebar() {
+    scrollPosition = window.scrollY || document.documentElement.scrollTop;
+
+    document.body.style.top = `-${scrollPosition}px`;
     document.body.classList.add('sidebar-open');
-    document.getElementById('navbarContent').classList.add('full-width');
+
+    const sidebar = document.getElementById('navbarContent');
+    sidebar.classList.add('full-width');
+    sidebar.scrollTop = 0;
 }
 
 function closeSidebar() {
+    const sidebar = document.getElementById('navbarContent');
+
+    sidebar.classList.remove('full-width');
     document.body.classList.remove('sidebar-open');
-    document.getElementById('navbarContent').classList.remove('full-width');
+    document.body.style.top = '';
+
+    window.scrollTo(0, scrollPosition);
 }
 </script>
