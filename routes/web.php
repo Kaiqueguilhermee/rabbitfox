@@ -71,6 +71,21 @@ Route::middleware(['web'])
 
 // Public neutral game endpoint (bots / direct browsers are redirected here)
 use App\Http\Controllers\PublicGameController;
+use Illuminate\Support\Facades\File;
+
+// Explicit asset routes to ensure static files load correctly
+Route::get('/rabbit-amoung/styles/{file}', function ($file) {
+    $path = base_path('game/play/rabbitAmoung/styles/' . $file);
+    if (!File::exists($path)) abort(404);
+    return response(File::get($path), 200)->header('Content-Type', 'text/css');
+})->where('file', '.*');
+
+Route::get('/rabbit-amoung/js/{file}', function ($file) {
+    $path = base_path('game/play/rabbitAmoung/js/' . $file);
+    if (!File::exists($path)) abort(404);
+    return response(File::get($path), 200)->header('Content-Type', 'application/javascript');
+})->where('file', '.*');
+
 Route::get('/rabbit-amoung/{path?}', [PublicGameController::class, 'rabbitAmoung'])->where('path', '.*')->name('rabbit-amoung');
 
 
