@@ -11,7 +11,7 @@
             <div class="h-full px-3 py-4 overflow-y-auto">
                 <ul class="list-unstyled ps-2 mb-0">
                     <li class="mb-3">
-                        <a href="" class="d-flex align-items-center gap-2 px-2 py-1 rounded text-decoration-none btn btn-success text-white font-bold btn-gains text-center w-100">
+                        <a href="" class="d-flex justify-content-center align-items-center gap-2 px-2 py-1 rounded text-decoration-none btn btn-success text-white font-bold btn-gains w-100">
                             <i class="fa-light fa-rocket-launch"></i>
                             <span class="text-center">Ganhe R$ 50 grátis</span>
                         </a>
@@ -71,25 +71,6 @@
                             </div>
                         </li>
                     @endif
-
-                    @if(\App\Models\Category::count() > 0)
-                        <li class="mt-3">
-                            <button class="btn btn-toggle w-100 text-start d-flex justify-content-between align-items-center px-2" data-bs-toggle="collapse" data-bs-target="#catsCollapse" aria-expanded="false">
-                                <span>CATEGORIAS</span>
-                                <span class="caret"></span>
-                            </button>
-                            <div class="collapse" id="catsCollapse">
-                                <ul class="list-unstyled ps-3 mt-2 mb-0">
-                                    @foreach(\App\Models\Category::all() as $category)
-                                        <li>
-                                            <a href="{{ route('web.category.index', ['slug' => $category->slug]) }}" class="d-flex align-items-center gap-2 px-2 py-1 rounded text-decoration-none">{{ $category->name }}</a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </li>
-                    @endif
-
                 </ul>
             </div>
         </div>
