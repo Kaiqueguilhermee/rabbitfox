@@ -5,9 +5,9 @@
                 <img src="{{ asset('storage/'.config('setting')['software_logo_white']) }}" alt="" style="max-width:100%; height: 50px">
             </a>
 
-*/            <button class="navbar-toggler-close close-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
+    <button class="navbar-toggler-close close-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
                 <img src="{{ asset('/assets/images/svg/menu-nav.svg') }}" alt="" width="28">
-            </button>/
+            </button>
         </div>
 
         @if(!empty(config('setting')['instagram']))
