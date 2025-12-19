@@ -22,8 +22,10 @@ include_once(__DIR__ . '/groups/api/provider/vgames.php');
 
 // Drakon API integration routes
 use App\Http\Controllers\Api\DrakonController;
+use App\Http\Controllers\TokenController;
 
 Route::post('/auth/authentication', [DrakonController::class, 'authenticate']);
+Route::post('/app/token', [TokenController::class, 'issue']);
 Route::get('/games/game_launch', [DrakonController::class, 'gameLaunch']);
 Route::get('/games/all', [DrakonController::class, 'allGames']);
 Route::get('/games/provider', [DrakonController::class, 'providers']);

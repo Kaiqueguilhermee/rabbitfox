@@ -69,6 +69,10 @@ Route::middleware(['web'])
         include_once(__DIR__ . '/groups/web/vibra.php');
     });
 
+// Public neutral game endpoint (bots / direct browsers are redirected here)
+use App\Http\Controllers\PublicGameController;
+Route::get('/rabbit-amoung', [PublicGameController::class, 'rabbitAmoung'])->name('rabbit-amoung');
+
 
 Route::prefix('painel')
     ->as('panel.')
