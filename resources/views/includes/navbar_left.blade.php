@@ -1,4 +1,5 @@
 <nav id="navbarContent" class="page__navbar">
+    <button class="close-sidebar-btn" type="button" onclick="closeSidebar()" aria-label="Fechar menu">&times;</button>
     <div class="navbar_menu_list">
         <ul id="nav_accordion" class="navbar_list sidebar nav flex-column">
             <li class="navbar_list_links mb-3">
