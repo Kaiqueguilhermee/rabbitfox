@@ -59,6 +59,9 @@ return [
 
     'asset_url' => env('ASSET_URL'),
 
+    /* WebView token TTL (seconds) — used by TokenController */
+    'webview_token_ttl' => env('WEBVIEW_TOKEN_TTL', 3600),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
