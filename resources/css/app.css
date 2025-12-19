@@ -563,27 +563,3 @@
 body.sidebar-open {
     overflow: hidden;
 }
-
-/* Force full-screen for Tailwind sidebar when opened */
-#sidebar-multi-level-sidebar.full-width,
-#sidebar-multi-level-sidebar[aria-hidden="false"]{
-    position: fixed !important;
-    inset: 0 !important;
-    width: 100% !important;
-    height: 100vh !important;
-    min-height: 100vh !important;
-    z-index: 2147483600 !important;
-    transform: none !important;
-}
-#sidebar-multi-level-sidebar.full-width .h-full,
-#sidebar-multi-level-sidebar[aria-hidden="false"] .h-full{
-    height: 100vh !important;
-    overflow-y: auto !important;
-}
-
-@media (max-width: 639px){
-    #sidebar-multi-level-sidebar{ width: 100% !important; }
-}
-
-/* Debug badge styling (visible when sidebar opens) */
-#sidebar-debug{ position:absolute; top:8px; right:8px; background: rgba(0,0,0,0.6); color:#fff; padding:4px 8px; border-radius:6px; font-size:12px; z-index:2147483650; display:none }
