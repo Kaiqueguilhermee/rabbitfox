@@ -91,11 +91,29 @@
             var nav = getNav();
             var back = getBackdrop();
             if(!nav) return;
+            // If nav is inside a transformed/clipped ancestor, move it to body temporarily
+            try{
+                if(nav.parentElement && nav.parentElement !== document.body){
+                    window._sidebarOriginal = {
+                        parent: nav.parentElement,
+                        nextSibling: nav.nextElementSibling
+                    };
+                    document.body.appendChild(nav);
+                }
+            }catch(e){}
+
+            // ensure no margins/constraints
             nav.classList.add('full-width');
             nav.setAttribute('aria-hidden','false');
             document.body.classList.add('sidebar-open');
             if(back) back.style.display = 'block';
             nav.style.zIndex = '2147483647';
+            nav.style.position = 'fixed';
+            nav.style.top = '0';
+            nav.style.left = '0';
+            nav.style.right = '0';
+            nav.style.bottom = '0';
+            nav.style.height = '100vh';
         }
 
         window.closeSidebar = function(){
@@ -106,8 +124,27 @@
             nav.setAttribute('aria-hidden','true');
             document.body.classList.remove('sidebar-open');
             if(back) back.style.display = 'none';
-            // cleanup any inline styles left
-            try{ nav.style.willChange = ''; nav.style.zIndex = ''; nav.style.transform = ''; }catch(e){}
+
+            // remove inline layout styles applied when opened
+            try{
+                nav.style.position = '';
+                nav.style.top = '';
+                nav.style.left = '';
+                nav.style.right = '';
+                nav.style.bottom = '';
+                nav.style.height = '';
+                nav.style.zIndex = '';
+            }catch(e){}
+
+            // If moved to body, restore it to original parent/position
+            try{
+                if(window._sidebarOriginal && window._sidebarOriginal.parent){
+                    var orig = window._sidebarOriginal;
+                    if(orig.nextSibling) orig.parent.insertBefore(nav, orig.nextSibling);
+                    else orig.parent.appendChild(nav);
+                    delete window._sidebarOriginal;
+                }
+            }catch(e){}
         }
 
         document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeSidebar(); });
