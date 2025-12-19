@@ -61,46 +61,52 @@
     </div>
 </nav>
 <script>
-let scrollPosition = 0;
 let sidebarOpen = false;
+let scrollPosition = 0;
 
-function openSidebar(event) {
-    if (event) event.stopPropagation();
+const sidebar = document.getElementById('navbarContent');
+const overlay = document.getElementById('sidebarOverlay');
+const openBtn = document.getElementById('openSidebarBtn');
+const closeBtn = document.querySelector('.close-sidebar-btn');
+
+function openSidebar() {
     if (sidebarOpen) return;
-
     sidebarOpen = true;
 
     scrollPosition = window.scrollY || document.documentElement.scrollTop;
+
     document.body.style.top = `-${scrollPosition}px`;
     document.body.classList.add('sidebar-open');
 
-    const sidebar = document.getElementById('navbarContent');
-    sidebar.classList.add('full-width');
+    sidebar.classList.add('is-open');
+    overlay.classList.add('active');
+
     sidebar.scrollTop = 0;
 }
 
-function closeSidebar(event) {
-    if (event) event.stopPropagation();
+function closeSidebar() {
     if (!sidebarOpen) return;
-
     sidebarOpen = false;
 
-    const sidebar = document.getElementById('navbarContent');
-    sidebar.classList.remove('full-width');
+    sidebar.classList.remove('is-open');
+    overlay.classList.remove('active');
 
     document.body.classList.remove('sidebar-open');
     document.body.style.top = '';
+
     window.scrollTo(0, scrollPosition);
 }
 
-document.addEventListener('click', function (e) {
-    if (!sidebarOpen) return;
+/* EVENTOS */
+openBtn.addEventListener('click', openSidebar);
+closeBtn.addEventListener('click', closeSidebar);
+overlay.addEventListener('click', closeSidebar);
 
-    const sidebar = document.getElementById('navbarContent');
-    if (!sidebar.contains(e.target)) {
-        e.preventDefault();
-        e.stopPropagation();
+/* ESC (opcional) */
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && sidebarOpen) {
+        closeSidebar();
     }
-}, true);
+});
 </script>
 
