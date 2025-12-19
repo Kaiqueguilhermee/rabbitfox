@@ -74,6 +74,34 @@ class ProfileController extends Controller
     }
 
     /**
+     * Handle avatar upload (AJAX).
+     */
+    public function uploadAvatar(Request $request)
+    {
+        $request->validate([
+            'avatar' => 'required|image|max:2048',
+        ]);
+
+        $user = auth()->user();
+
+        $file = $request->file('avatar');
+        $path = $file->store('avatars', 'public');
+
+        // Optionally delete previous avatar if it's under storage
+        if(!empty($user->avatar) && str_starts_with($user->avatar, 'avatars/')){
+            try { \Storage::disk('public')->delete($user->avatar); } catch(\Exception $e){}
+        }
+
+        $user->avatar = $path;
+        $user->save();
+
+        return response()->json([
+            'status' => true,
+            'avatar_url' => \Storage::url($path),
+        ]);
+    }
+
+    /**
      * Display the specified resource.
      */
     public function show(string $id)

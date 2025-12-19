@@ -27,9 +27,14 @@
                             <p class="text-muted small mb-3">Membro desde {{ auth()->user()->created_at->format('M Y') }}</p>
 
                             <div class="d-grid gap-2">
-                                <a href="{{ route('panel.profile.editAvatar') }}" class="btn btn-outline-secondary btn-sm">Alterar avatar</a>
+                                <form id="avatarUploadForm" enctype="multipart/form-data">
+                                    @csrf
+                                    <label class="btn btn-sm btn-outline-primary mb-2" for="avatarInput">Alterar avatar</label>
+                                    <input id="avatarInput" name="avatar" type="file" accept="image/*" class="d-none">
+                                </form>
                                 <a href="{{ route('panel.profile.security') }}" class="btn btn-outline-secondary btn-sm">Segurança da conta</a>
                             </div>
+                            <div class="mt-2 small text-muted">Formato permitido: JPG/PNG. Máx 2MB.</div>
                         </div>
                     </div>
 
@@ -111,5 +116,43 @@
 
         $('.sp_celphones').mask(SPMaskBehavior, spOptions);
 
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            var input = document.getElementById('avatarInput');
+            var form = document.getElementById('avatarUploadForm');
+            var avatarImg = document.querySelector('.profile-avatar img');
+            var avatarPlaceholder = document.querySelector('.avatar-placeholder');
+
+            if(!input || !form) return;
+
+            input.addEventListener('change', function(){
+                var file = input.files[0];
+                if(!file) return;
+                var formData = new FormData();
+                formData.append('avatar', file);
+
+                var token = document.querySelector('meta[name="csrf-token"]');
+
+                fetch("{{ route('panel.profile.avatar.upload') }}", {
+                    method: 'POST',
+                    headers: token ? {'X-CSRF-TOKEN': token.getAttribute('content')} : {},
+                    body: formData
+                }).then(function(res){ return res.json(); })
+                .then(function(json){
+                    if(json.status && json.avatar_url){
+                        // update preview
+                        if(avatarImg){ avatarImg.src = json.avatar_url; avatarImg.style.display = ''; }
+                        if(avatarPlaceholder) avatarPlaceholder.style.display = 'none';
+                    } else {
+                        alert('Erro ao enviar avatar');
+                    }
+                }).catch(function(){ alert('Erro de rede ao enviar avatar'); });
+            });
+
+            // click handler for the label button
+            var label = document.querySelector('label[for="avatarInput"]');
+            if(label){ label.addEventListener('click', function(){ input.click(); }); }
+        });
     </script>
 @endpush

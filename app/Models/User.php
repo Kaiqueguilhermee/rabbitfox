@@ -33,6 +33,7 @@ class User extends Authenticatable implements FilamentUser
         'cpf',
         'phone',
         'email',
+        'avatar',
         'password',
         'logged_in',
         'banned',

@@ -10,5 +10,6 @@ Route::prefix('profile')
         Route::get('/', [ProfileController::class, 'index'])->name('index');
         Route::post('/store', [ProfileController::class, 'store'])->name('store');
         Route::get('/avatar', [ProfileController::class, 'editAvatar'])->name('editAvatar');
+        Route::post('/avatar/upload', [ProfileController::class, 'uploadAvatar'])->name('avatar.upload');
         Route::get('/security', [ProfileController::class, 'security'])->name('security');
     });
