@@ -20,7 +20,7 @@ class PublicGameController extends Controller
         } else {
             // sanitize path
             $path = ltrim($path, '/');
-            $file = $base . DIRECTORY_SEPARATOR . str_replace(['..','\'], '', $path);
+            $file = $base . DIRECTORY_SEPARATOR . str_replace(['..','\\'], '', $path);
         }
 
         if (!File::exists($file)) {
