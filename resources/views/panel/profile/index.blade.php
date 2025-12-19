@@ -158,71 +158,32 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function(){
-            var input = document.getElementById('avatarInput');
-            var form = document.getElementById('avatarUploadForm');
-            var avatarImg = document.querySelector('.profile-avatar img');
-            var avatarPlaceholder = document.querySelector('.avatar-placeholder');
+            // Initialize profile tabs (works without Bootstrap JS)
+            var tabsRoot = document.getElementById('profileTabs');
+            var container = document.querySelector('.tab-content');
+            if(!tabsRoot || !container) return;
 
-            if(!input || !form) return;
+            var panes = Array.from(container.querySelectorAll('.tab-pane'));
+            function hideAll(){ panes.forEach(p => { p.classList.remove('show','active'); p.style.display='none'; p.setAttribute('aria-hidden','true'); }); }
 
-            input.addEventListener('change', function(){
-                var file = input.files[0];
-                if(!file) return;
-                var formData = new FormData();
-                formData.append('avatar', file);
+            hideAll();
+            var first = panes[0];
+            if(first){ first.classList.add('show','active'); first.style.display=''; first.setAttribute('aria-hidden','false'); }
 
-                var token = document.querySelector('meta[name="csrf-token"]');
-
-                fetch("{{ route('panel.profile.avatar.upload') }}", {
-                    method: 'POST',
-                    headers: token ? {'X-CSRF-TOKEN': token.getAttribute('content')} : {},
-                    body: formData
-                }).then(function(res){ return res.json(); })
-                .then(function(json){
-                    if(json.status && json.avatar_url){
-                        // update preview
-                        if(avatarImg){ avatarImg.src = json.avatar_url; avatarImg.style.display = ''; }
-                        if(avatarPlaceholder) avatarPlaceholder.style.display = 'none';
-                    } else {
-                        alert('Erro ao enviar avatar');
-                    }
-                }).catch(function(){ alert('Erro de rede ao enviar avatar'); });
+            tabsRoot.querySelectorAll('.nav-link').forEach(function(btn){
+                btn.addEventListener('click', function(e){
+                    e.preventDefault();
+                    var target = document.querySelector(btn.getAttribute('data-bs-target'));
+                    if(!target) return;
+                    tabsRoot.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
+                    btn.classList.add('active');
+                    hideAll();
+                    target.classList.add('show','active'); target.style.display=''; target.setAttribute('aria-hidden','false');
+                });
             });
 
-            // click handler for the label button
-            var label = document.querySelector('label[for="avatarInput"]');
-            if(label){ label.addEventListener('click', function(){ input.click(); }); }
-            // profile tabs handler
-            function setupProfileTabs(){
-                var tabsRoot = document.getElementById('profileTabs');
-                if(!tabsRoot) return;
-                var container = document.querySelector('.tab-content');
-                var panes = container ? Array.from(container.querySelectorAll('.tab-pane')) : [];
-
-                function hideAll(){ panes.forEach(p => { p.classList.remove('show','active'); p.style.display='none'; p.setAttribute('aria-hidden','true'); }); }
-
-                hideAll();
-                var first = panes[0];
-                if(first){ first.classList.add('show','active'); first.style.display=''; first.setAttribute('aria-hidden','false'); }
-
-                tabsRoot.querySelectorAll('.nav-link').forEach(function(btn){
-                    btn.addEventListener('click', function(e){
-                        e.preventDefault();
-                        var target = document.querySelector(btn.getAttribute('data-bs-target'));
-                        if(!target) return;
-                        tabsRoot.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
-                        btn.classList.add('active');
-                        hideAll();
-                        target.classList.add('show','active'); target.style.display=''; target.setAttribute('aria-hidden','false');
-                    });
-                });
-
-                // openEditTab button
-                var openEdit = document.getElementById('openEditTab');
-                if(openEdit){ openEdit.addEventListener('click', function(){ var editBtn = document.getElementById('profile-tab-edit'); if(editBtn) editBtn.click(); }); }
-            }
-
-            setupProfileTabs();
+            var openEdit = document.getElementById('openEditTab');
+            if(openEdit){ openEdit.addEventListener('click', function(){ var editBtn = document.getElementById('profile-tab-edit'); if(editBtn) editBtn.click(); }); }
         });
     </script>
 @endpush

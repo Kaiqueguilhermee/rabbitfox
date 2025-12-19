@@ -527,9 +527,6 @@
 }
 
 /* Avatar uploader styles */
-.profile-card label[for="avatarInput"] {
-    cursor: pointer;
-}
 .avatar-placeholder {
     width: 120px; height: 120px; font-weight: 700; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
 }
