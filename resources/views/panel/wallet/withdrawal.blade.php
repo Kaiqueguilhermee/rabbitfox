@@ -4,6 +4,41 @@
 
 @endpush
 
+@push('scripts')
+    <script>
+        (function(){
+            // Fallback tab handler if Bootstrap JS isn't present
+            var tabsRoot = document.getElementById('walletTabs');
+            if(!tabsRoot) return;
+
+            tabsRoot.querySelectorAll('.nav-link').forEach(function(btn){
+                btn.addEventListener('click', function(e){
+                    e.preventDefault();
+                    var targetSelector = btn.getAttribute('data-bs-target') || btn.getAttribute('href');
+                    if(!targetSelector) return;
+
+                    // Deactivate other buttons
+                    tabsRoot.querySelectorAll('.nav-link').forEach(function(b){ b.classList.remove('active'); });
+                    btn.classList.add('active');
+
+                    // Hide other panes
+                    var container = document.querySelector('.wallet-tabs .tab-content');
+                    if(!container) return;
+                    container.querySelectorAll('.tab-pane').forEach(function(p){
+                        p.classList.remove('show','active');
+                    });
+
+                    // Show target pane
+                    var target = document.querySelector(targetSelector);
+                    if(target){
+                        target.classList.add('show','active');
+                    }
+                });
+            });
+        })();
+    </script>
+@endpush
+
 @section('content')
     <div class="container-fluid">
         @include('includes.navbar_top')
