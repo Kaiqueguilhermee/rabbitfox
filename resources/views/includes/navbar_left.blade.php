@@ -1,5 +1,5 @@
 <nav id="navbarContent" class="page__navbar">
-    <button class="close-sidebar-btn" type="button" onclick="closeSidebar(event)" aria-label="Fechar menu">&times;</button>
+    <button class="close-sidebar-btn" type="button" onclick="closeSidebar()" aria-label="Fechar menu">&times;</button>
     <div class="navbar_menu_list">
         <ul id="nav_accordion" class="navbar_list sidebar nav flex-column">
             <li class="navbar_list_links mb-3">
@@ -60,48 +60,3 @@
         </ul>
     </div>
 </nav>
-<script>
-let sidebarOpen = false;
-let scrollPosition = 0;
-
-document.addEventListener('DOMContentLoaded', () => {
-
-    const sidebar = document.getElementById('navbarContent');
-    const closeBtn = sidebar.querySelector('.close-sidebar-btn');
-
-    function openSidebar() {
-        if (sidebarOpen) return;
-        sidebarOpen = true;
-
-        scrollPosition = window.scrollY || document.documentElement.scrollTop;
-
-        document.body.style.top = `-${scrollPosition}px`;
-        document.body.classList.add('sidebar-open');
-
-        sidebar.classList.add('full-width');
-    }
-
-    function closeSidebar() {
-        if (!sidebarOpen) return;
-        sidebarOpen = false;
-
-        sidebar.classList.remove('full-width');
-
-        document.body.classList.remove('sidebar-open');
-        document.body.style.top = '';
-        window.scrollTo(0, scrollPosition);
-    }
-
-    // 🔥 BOTÃO FECHAR
-    closeBtn.addEventListener('click', closeSidebar);
-
-    // 🔥 SEU BOTÃO DE ABRIR JÁ EXISTE — SÓ CONECTA
-    document.addEventListener('click', e => {
-        if (e.target.closest('[onclick*="openSidebar"]')) {
-            openSidebar();
-        }
-    });
-
-});
-</script>
-
