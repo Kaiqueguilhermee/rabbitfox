@@ -60,3 +60,27 @@
         </ul>
     </div>
 </nav>
+
+<script>
+    (function(){
+        function getNav(){ return document.getElementById('navbarContent'); }
+        window.openSidebar = function(){
+            var nav = getNav();
+            if(!nav) return;
+            nav.classList.add('full-width');
+            document.body.classList.add('sidebar-open');
+        }
+        window.closeSidebar = function(){
+            var nav = getNav();
+            if(!nav) return;
+            nav.classList.remove('full-width');
+            document.body.classList.remove('sidebar-open');
+        }
+        // close on Escape key
+        document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeSidebar(); });
+        // ensure nav is not clipped by any parent style on load
+        document.addEventListener('DOMContentLoaded', function(){
+            var nav = getNav(); if(!nav) return; nav.style.willChange = 'transform,opacity';
+        });
+    })();
+</script>

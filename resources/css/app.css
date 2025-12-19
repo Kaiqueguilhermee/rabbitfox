@@ -535,19 +535,23 @@
 /* Fullscreen sidebar for WebView */
 .page__navbar.full-width {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     width: 100%;
     height: 100vh;
+    min-height: 100vh;
+    box-sizing: border-box;
     z-index: 9999;
     background: #0d0d0d;
-    overflow-y: auto;
-    padding: 1.25rem;
+    overflow: hidden;
+    padding: 1.25rem 1.25rem 3.5rem 1.25rem;
 }
 .page__navbar.full-width .navbar_menu_list {
     max-width: 100%;
+}
+.page__navbar.full-width .navbar_menu_list {
+    height: calc(100vh - 72px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
 }
 .close-sidebar-btn {
     position: fixed;
