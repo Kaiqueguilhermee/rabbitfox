@@ -553,7 +553,33 @@ h1 {
       </div>
     </div>
 
-    <script src="start-reactor.js"></script>
+    <script src="/rabbit-amoung/start-reactor.js"></script>
+    <script>
+      (function(){
+        try {
+          console.log('PublicGame: location=', location.href);
+          console.log('PublicGame: baseURI=', document.baseURI);
+          Array.from(document.querySelectorAll('link[rel="stylesheet"]')).forEach(function(l){
+            var href = l.getAttribute('href');
+            try { console.log('CSS', href, '->', new URL(href, document.baseURI).href); } catch(e) { console.log('CSS', href, '->', e); }
+          });
+          Array.from(document.querySelectorAll('script[src]')).forEach(function(s){
+            var src = s.getAttribute('src');
+            try { console.log('SCRIPT', src, '->', new URL(src, document.baseURI).href); } catch(e) { console.log('SCRIPT', src, '->', e); }
+          });
+          Array.from(document.querySelectorAll('img')).forEach(function(i){
+            var src = i.getAttribute('src');
+            if (src) try { console.log('IMG', src, '->', new URL(src, document.baseURI).href); } catch(e){ console.log('IMG', src, '->', e); }
+          });
+          Array.from(document.querySelectorAll('audio, source')).forEach(function(a){
+            var src = a.getAttribute('src');
+            if (src) try { console.log('AUDIO', src, '->', new URL(src, document.baseURI).href); } catch(e){ console.log('AUDIO', src, '->', e); }
+          });
+        } catch (e) {
+          console.log('PublicGame: diagnostics error', e);
+        }
+      })();
+    </script>
     <script>
       const loadButton = document.getElementById("loadButton")
       const startButton = document.getElementById("startButton")
@@ -580,10 +606,10 @@ h1 {
     memoryMaxCombination: 9,
 
     audio: {
-        start: 'start.mp3',
-        fail: 'fail.mp3',
-        complete: 'complete.mp3',
-        combinations: ['0.mp3', '1.mp3', '2.mp3', '3.mp3', '4.mp3', '5.mp3', '6.mp3', '7.mp3', '8.mp3'],
+    start: '/rabbit-amoung/start.mp3',
+    fail: '/rabbit-amoung/fail.mp3',
+    complete: '/rabbit-amoung/complete.mp3',
+    combinations: ['/rabbit-amoung/0.mp3', '/rabbit-amoung/1.mp3', '/rabbit-amoung/2.mp3', '/rabbit-amoung/3.mp3', '/rabbit-amoung/4.mp3', '/rabbit-amoung/5.mp3', '/rabbit-amoung/6.mp3', '/rabbit-amoung/7.mp3', '/rabbit-amoung/8.mp3'],
         
         loadAudio(filename) {
 
