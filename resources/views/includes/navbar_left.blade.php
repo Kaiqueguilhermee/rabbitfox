@@ -62,10 +62,15 @@
 </nav>
 <script>
 let scrollPosition = 0;
+let sidebarOpen = false;
 
-function openSidebar() {
+function openSidebar(event) {
+    if (event) event.stopPropagation();
+    if (sidebarOpen) return;
+
+    sidebarOpen = true;
+
     scrollPosition = window.scrollY || document.documentElement.scrollTop;
-
     document.body.style.top = `-${scrollPosition}px`;
     document.body.classList.add('sidebar-open');
 
@@ -74,13 +79,28 @@ function openSidebar() {
     sidebar.scrollTop = 0;
 }
 
-function closeSidebar() {
-    const sidebar = document.getElementById('navbarContent');
+function closeSidebar(event) {
+    if (event) event.stopPropagation();
+    if (!sidebarOpen) return;
 
+    sidebarOpen = false;
+
+    const sidebar = document.getElementById('navbarContent');
     sidebar.classList.remove('full-width');
+
     document.body.classList.remove('sidebar-open');
     document.body.style.top = '';
-
     window.scrollTo(0, scrollPosition);
 }
+
+document.addEventListener('click', function (e) {
+    if (!sidebarOpen) return;
+
+    const sidebar = document.getElementById('navbarContent');
+    if (!sidebar.contains(e.target)) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+}, true);
 </script>
+
