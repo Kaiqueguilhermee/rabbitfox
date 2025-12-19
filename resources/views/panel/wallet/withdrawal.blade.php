@@ -17,63 +17,48 @@
             <div class="wallet-transactions mt-5">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="mb-0">HISTÓRICO DE SAQUES</h4>
+                        <h4 class="mb-0">Histórico de Saques</h4>
                     </div>
                     <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover mb-0">
-                                <thead class="table-dark">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Comprovante</th>
-                                    <th scope="col">Tipo</th>
-                                    <th scope="col">Valor</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Data</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    @if(count($withdrawals))
-                                        @foreach($withdrawals as $withdrawal)
-                                            <tr>
-                                                <th scope="row">{{ $withdrawal->id }}</th>
-                                                <td>
-                                                    @if(!empty($withdrawal->proof))
-                                                        <a href="{{ url('storage/'. $withdrawal->proof) }}" download class="text-success">Baixar</a>
-                                                    @else
-                                                        ....
-                                                    @endif
-                                                </td>
-                                                <td>{{ $withdrawal->type }}</td>
-                                                <td>{{ \Helper::amountFormatDecimal($withdrawal->amount) }}</td>
-                                                <td>
-                                                    @if($withdrawal->status == 0)
-                                                        <span class="badge bg-warning text-dark">Pendente</span>
-                                                    @else
-                                                        <span class="badge bg-success">Confirmado</span>
-                                                    @endif
-                                                </td>
-                                                <td>{{ $withdrawal->dateHumanReadable }}</td>
-                                            </tr>
-                                        @endforeach
-                                    @else
-                                        <tr>
-                                            <td class="flex items-center justify-center text-center py-4" colspan="5">
-                                                <h4 class=" mb-0">NENHUMA INFORMAÇÃO A EXIBIR</h4>
-                                            </td>
-                                        </tr>
-                                    @endif
-                                </tbody>
-                            </table>
-                        </div>
+                        <div class="tx-list">
+                            @if(count($withdrawals))
+                                @foreach($withdrawals as $withdrawal)
+                                    <div class="tx-item d-flex align-items-center justify-content-between">
+                                        <div class="tx-left d-flex align-items-start">
+                                            <div class="tx-id me-3 text-muted small">#{{ $withdrawal->id }}</div>
+                                            <div>
+                                                <div class="tx-type fw-semibold">{{ $withdrawal->type }}</div>
+                                                <div class="tx-meta small text-muted">
+                                                    <span>
+                                                        @if(!empty($withdrawal->proof))
+                                                            <a href="{{ url('storage/'. $withdrawal->proof) }}" download class="text-muted">Comprovante</a>
+                                                        @endif
+                                                    </span>
+                                                    <span class="mx-2">•</span>
+                                                    <span>{{ $withdrawal->dateHumanReadable }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                        <div class="mt-5">
-                            <div class="row">
-                                <div class="col-lg-6"></div>
-                                <div class="col-lg-6">
+                                        <div class="tx-right text-end">
+                                            <div class="tx-amount fw-bold">{{ \Helper::amountFormatDecimal($withdrawal->amount) }}</div>
+                                            <div class="tx-status small mt-1">
+                                                @if($withdrawal->status == 0)
+                                                    <span class="badge bg-transparent tx-badge-pending">Pendente</span>
+                                                @else
+                                                    <span class="badge bg-transparent tx-badge-success">Confirmado</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+
+                                <div class="p-3">
                                     {{ $withdrawals->links() }}
                                 </div>
-                            </div>
+                            @else
+                                <div class="p-4 text-center text-muted small">Nenhum saque encontrado.</div>
+                            @endif
                         </div>
                     </div>
                 </div>

@@ -454,6 +454,32 @@
     .wallet-card-figure { display: none !important; }
 }
 
+/* Minimal transaction list */
+.tx-list {
+    background: transparent;
+}
+.tx-item {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.tx-item:last-child { border-bottom: none; }
+.tx-id { min-width: 56px; }
+.tx-type { color: #e6eef6; }
+.tx-meta { color: rgba(230,238,246,0.6); }
+.tx-amount { color: #ffffff; }
+.tx-badge-pending {
+    color: #f59e0b;
+}
+.tx-badge-success {
+    color: #34d399;
+}
+
+@media (max-width: 576px) {
+    .tx-item { padding: 0.6rem 0.75rem; }
+    .tx-right { min-width: 100px; }
+}
+
+
 
 .last-winner-item {
     flex-shrink: 0;
