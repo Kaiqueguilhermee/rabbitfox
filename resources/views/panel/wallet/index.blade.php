@@ -99,11 +99,14 @@ document.addEventListener('DOMContentLoaded', function(){
 
     tabButtons.forEach(function(btn){
         btn.addEventListener('click', function(e){
-            // If Bootstrap's tab behavior is present, let it handle; otherwise fallback
-            if(typeof bootstrap !== 'undefined' && bootstrap.Tab) return;
-
             var targetSelector = btn.getAttribute('data-bs-target');
             if(!targetSelector) return;
+
+            // If Bootstrap's tab behavior is present AND this button is annotated with data-bs-toggle="tab",
+            // let Bootstrap handle it. Otherwise run our fallback.
+            var bootstrapHandles = (typeof bootstrap !== 'undefined' && bootstrap.Tab);
+            var hasToggle = btn.getAttribute('data-bs-toggle') === 'tab';
+            if(bootstrapHandles && hasToggle) return;
 
             // deactivate nav links
             tabsContainer.querySelectorAll('.nav-link').forEach(function(n){
@@ -120,8 +123,8 @@ document.addEventListener('DOMContentLoaded', function(){
             btn.setAttribute('aria-selected','true');
 
             var pane = document.querySelector(targetSelector);
-            if(pane){ pane.classList.add('show','active');
-                // if there are links (pagination) that rely on anchors, ensure they remain visible
+            if(pane){
+                pane.classList.add('show','active');
                 var firstFocusable = pane.querySelector('a,button,input,select,textarea');
                 if(firstFocusable) firstFocusable.focus({preventScroll:true});
             }
