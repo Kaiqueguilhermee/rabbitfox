@@ -82,7 +82,7 @@ class GameController extends Controller
                 }
 
                 if (empty($token) || empty(\Illuminate\Support\Facades\Cache::get('app_token:' . $token))) {
-                    return redirect('/rabbit-amoung');
+                    return redirect('/rabbitAmoung');
                 }
 
     }

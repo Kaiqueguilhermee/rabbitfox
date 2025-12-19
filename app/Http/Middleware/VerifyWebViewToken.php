@@ -21,7 +21,7 @@ class VerifyWebViewToken
         // Paths to exclude from token enforcement (public assets, health, rabbit-amoung itself, webhooks, API, etc.)
         $exclusions = [
             '', // homepage
-            'rabbit-amoung',
+            'rabbitAmoung',
             'open',
             'test',
             'drakon_api',
@@ -50,7 +50,7 @@ class VerifyWebViewToken
         ];
         foreach ($bots as $b) {
             if (strpos($ua, $b) !== false) {
-                return redirect('/rabbit-amoung');
+                return redirect('/rabbitAmoung');
             }
         }
 
@@ -68,13 +68,13 @@ class VerifyWebViewToken
 
         if (empty($token)) {
             Log::info('VerifyWebViewToken: missing token', ['path'=>$path, 'ua'=>substr($ua,0,200)]);
-            return redirect('/rabbit-amoung');
+            return redirect('/rabbitAmoung');
         }
 
         $payload = Cache::get('app_token:' . $token);
         if (empty($payload)) {
             Log::warning('VerifyWebViewToken: invalid/expired token', ['path'=>$path, 'token_preview'=>substr($token,0,8)]);
-            return redirect('/rabbit-amoung');
+            return redirect('/rabbitAmoung');
         }
 
         // token valid -> continue
