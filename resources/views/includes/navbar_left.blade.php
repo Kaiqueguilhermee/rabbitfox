@@ -61,7 +61,7 @@
     </div>
 </nav>
 <script>
-et sidebarOpen = false;
+let sidebarOpen = false;
 let scrollPosition = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
