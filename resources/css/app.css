@@ -553,6 +553,30 @@
     overflow-y: auto;
     overscroll-behavior: contain;
 }
+
+/* Strong overrides to avoid other CSS/JS clipping the sidebar in the WebView */
+.page__navbar.full-width {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    inset: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    transform: none !important;
+    z-index: 2147483647 !important;
+    pointer-events: auto !important;
+}
+.page__navbar.full-width .navbar_menu_list {
+    height: calc(100vh - 72px) !important;
+}
+body.sidebar-open {
+    overflow: hidden !important;
+    touch-action: none !important;
+}
 .close-sidebar-btn {
     position: fixed;
     top: 12px;
