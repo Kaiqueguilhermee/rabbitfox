@@ -11,7 +11,7 @@
             <div class="h-full px-3 py-4 overflow-y-auto">
                 <ul class="list-unstyled ps-2 mb-0">
                     <li class="mb-3">
-                        <a href="" class="d-flex align-items-center gap-2 px-2 py-1 rounded text-decoration-none">
+                        <a href="" class="d-flex align-items-center gap-2 px-2 py-1 rounded text-decoration-none btn btn-success text-white font-bold btn-gains">
                             <i class="fa-light fa-rocket-launch"></i>
                             <span>Ganhe R$ 50 grátis</span>
                         </a>
