@@ -56,7 +56,6 @@
                 </li>
             @endif
 
-            {{-- Categoria removida do menu --}}
         </ul>
     </div>
 </nav>
