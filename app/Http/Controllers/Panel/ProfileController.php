@@ -56,6 +56,24 @@ class ProfileController extends Controller
     }
 
     /**
+     * Show avatar edit placeholder or redirect to profile index.
+     */
+    public function editAvatar()
+    {
+        // Placeholder: redirect back to profile page for now
+        return redirect()->route('panel.profile.index');
+    }
+
+    /**
+     * Show security settings placeholder or redirect to profile index.
+     */
+    public function security()
+    {
+        // Placeholder: redirect back to profile page for now
+        return redirect()->route('panel.profile.index');
+    }
+
+    /**
      * Display the specified resource.
      */
     public function show(string $id)
