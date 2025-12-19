@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule ^drakon_api$ drakon_api.php [L,QSA]
