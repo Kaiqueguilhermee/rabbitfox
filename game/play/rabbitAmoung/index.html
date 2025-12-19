@@ -8,6 +8,493 @@
     <link rel="stylesheet" href="styles.css" />
     <title>Start Reactor</title>
   </head>
+  <style>
+    .size {
+    width: fit-content;
+    height: fit-content;
+    animation: move 22s infinite;
+    position: absolute;
+    top: 25%;
+    z-index: 1;
+    transform: scale(0.4);
+    opacity: .5;
+}
+.player{
+    background-color: #840931;
+    border: 10px solid #000000;
+    border-bottom: none;
+    border-radius: 60px 80px 0 0;
+    height: 200px;
+    width: 140px;
+    margin: auto;
+    top: 50px;
+    left: -15%;
+    z-index: 1;
+    animation: rotate 15s infinite;
+}
+.player:after{
+    content: "";
+    position: absolute;
+    width: 92%;
+    height: 85%;
+    background-color: #EA1616;
+    border-radius:58% 70% 28% 42% / 28% 56% 88% 89%;
+ 
+    top: 2.5px;
+    left: 6px;
+}
+.legs{
+    height: 50px;
+    width: 60px;
+    background-color: #840931;
+    position: absolute;
+    left: -10px;
+    bottom: -50px;
+    border: 10px solid black;
+    border-top: none;
+    border-radius: 0 0 22px 22px;
+    z-index: 1;
+}
+.legs:before{
+    content: "";
+    height: 37px;
+    width: 40px;
+    background-color: #840931;
+    position: absolute;
+    right: -90px;
+    border: 10px solid black;
+    border-top: none;
+    border-radius: 0 0 22px 22px;
+}
+.legs:after{
+    content: "";
+    height: 10px;
+    width: 55px;
+    background-color: black;
+    position: absolute;
+    top: -10px;
+    left: 40px;
+    border-radius: 0 0 10px 0;
+}
+.back{
+    height: 120px;
+    width: 35px;
+    background-color: #EA1616;
+    border: 10px solid black;
+    border-right: none;
+    position: absolute;
+    left: -45px;
+    top: 65px;
+    border-radius: 20px 0 0 20px;
+}
+.back:before{
+    content: "";
+    position: absolute;
+    height: 78px;
+    width: 26px;
+    background-color: #840931;
+    bottom: -0.5px;
+    left: -1px;
+    border-radius: 12px 0 0 8px;
+}
+.glass{
+    height: 75px;
+    width: 110px;
+    background-color: #225381;
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    border: 10px solid black;
+    border-radius: 25px 50px 30px 30px ;
+    z-index: 2;
+}
+.glass:before{
+    content: "";
+    position: absolute;
+    width: 85%;
+    height: 65%;
+    background-color: #71D4EC;
+    border-radius: 0 28px 3px 30px ;
+    right: 0px;
+    top: 0px;
+}
+.glass:after{
+    content: "";
+    position: absolute;
+    width: 45%;
+    height: 22%;
+    background-color: #F7F7F7;
+    left: 39px;
+    top: 5px;
+    border-radius: 25px;
+    -webkit-transform: rotate(6deg);
+        -ms-transform: rotate(6deg);
+            transform: rotate(6deg);
+}
+
+@keyframes move {
+    0% {
+        right: 100%;
+    }
+    50% {
+        right: -1%;
+    }
+    51% {
+        right: -0%;
+    }
+    100% {
+        right: 100%;
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    15% {
+        transform: rotate(70deg);
+    }
+    30% {
+        transform: rotate(215deg);
+    }
+    45% {
+        transform: rotate(295deg);
+    }
+    60% {
+        transform: rotate(325deg);
+    }
+    75% {
+        transform: rotate(-420deg);
+    }
+    90% {
+        transform: rotate(-485deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+@media screen and (max-width: 936px) {
+    .container {
+        flex-direction: column;
+    }
+    .painel {
+        margin: 15px 0;
+        min-width: 280px;
+        min-height: 317px;
+    }
+    .painel .boxPainel {
+        min-height: 268px;
+        min-width: 79.8%;
+    }
+}
+
+@media screen and (min-width: 642px) {
+    .container {
+        flex-direction: row;
+    }
+    .painel {
+        margin: 0 15px;
+        min-width: 280px;
+        min-height: 317px;
+    }
+    .painel .boxPainel {
+        min-height: 268px;
+        min-width: 79.8%;
+    }
+}
+
+@media screen and (min-width: 776px) {
+    .container {
+        flex-direction: row;
+    }
+    .painel {
+        margin: 0 15px;
+        min-width: 368px;
+        min-height: 417px;
+    }
+    .painel .boxPainel {
+        min-height: 353px;
+        min-width: 79.8%;
+    }
+}
+
+@media screen and (min-width: 1159px) {
+    .painel {
+        margin: 0 15px;
+        min-width: 456px;
+        min-height: 517px;
+    }
+    .painel .boxPainel {
+        min-height: 428px;
+        min-width: 79.8%;
+    }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 62.5%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  height: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  background-image: url(../svg/among-us-space.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+h1 {
+  text-align: center;
+}
+
+.btns {
+  position: absolute;
+  z-index: 100;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.btns h1 {
+  cursor: pointer;
+  color: #00c000;
+  animation: pisca 2s infinite;
+  font-weight: 800;
+}
+
+.btns h1:hover {
+  color: #032a03;
+}
+
+@keyframes pisca {
+  0% {
+    opacity: 1;
+  }
+  82% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  font-size: 20pt;
+  margin: 0 4px;
+  padding: 0 8px;
+}
+
+h1 {
+  z-index: 5;
+  font-size: 5rem;
+  color: #c7c0c0;
+}
+
+.container {
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  height: fit-content;
+  width: 86%;
+}
+
+.painel {
+  border: 8px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(../svg/frame.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.boxPainel {
+  display: flex;
+  flex-direction: column;
+  padding: 4%;
+  justify-content: center;
+  align-items: center;
+}
+
+.playerLedPanel {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.computerLedPanel {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.led {
+  height: 38px;
+  width: 38px;
+  border-radius: 50%;
+  border: solid 5px #202020;
+  background-image: url(../svg/led.svg);
+  background-size: contain;
+  box-shadow: -2px 7px #827e7f;
+}
+
+.painelMemory {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 33.3%);
+  grid-template-rows: repeat(3, 33.3%);
+  margin: 25px 0;
+  flex: 1;
+  width: 96%;
+  height: 100%;
+  background: black;
+  padding: 5px;
+  border-radius: 1px;
+  box-shadow: 0px 0px 0px 4px rgba(57, 57, 57, 1),
+    0px 0px 0px 9px rgba(197, 197, 197, 1);
+}
+
+.memory {
+  border-radius: 6px;
+  width: 100%;
+  height: 100%;
+}
+
+.memoryActive {
+  animation: mActive 0.3s;
+}
+
+@keyframes mActive {
+  to {
+    background: #44a8fe;
+  }
+}
+
+.ledOn {
+  border: solid 5px #202020;
+  background-image: url(../svg/ledgreen.svg);
+  background-size: contain;
+}
+
+.playerMemory {
+  display: grid;
+  gap: 4%;
+  grid-template-columns: repeat(3, 31.3%);
+  grid-template-rows: repeat(3, 31.3%);
+  margin: 25px 0;
+  flex: 1;
+  width: 96%;
+  height: 100%;
+  padding: 5px;
+  border-radius: 1px;
+}
+
+.player_memory {
+  background: #686868;
+  box-shadow: 0px 0px 0px 4px rgb(10, 10, 10);
+  border: inset 4px #505050;
+  border-radius: 4px;
+  cursor: not-allowed;
+}
+
+.playerMemoryActive {
+  background: #c7c0c0;
+  box-shadow: 0px 0px 0px 4px rgb(10, 10, 10);
+  border: inset 4px #505050;
+  cursor: pointer;
+}
+
+.playerMemoryError {
+  animation: errorMemory 0.2s;
+  animation-iteration-count: 4;
+}
+
+.playerLedError {
+  animation: errorLed 0.2s;
+  animation-iteration-count: 4;
+}
+
+.playerMemoryComplete {
+  animation: completeMemory 0.2s;
+  animation-iteration-count: 4;
+}
+
+.playerLedComplete {
+  animation: completeLed 0.2s;
+  animation-iteration-count: 4;
+}
+
+.last {
+  box-shadow: 0px 0px 0px 4px rgb(10, 10, 10), 2px 22px 0px -9px#575757,
+    1px 18px 0px 2px #6a6a6a;
+}
+
+.teste {
+  font-size: 3rem;
+}
+
+@keyframes errorLed {
+  to {
+    border: solid 5px #202020;
+    background-image: url(../svg/ledred.svg);
+  }
+}
+
+@keyframes errorMemory {
+  to {
+    background: #af0f0f;
+    box-shadow: 0px 0px 0px 4px #952c01 !important;
+    border: inset 4px #200200;
+  }
+}
+
+@keyframes completeLed {
+  to {
+    border: solid 5px #202020;
+    background-image: url(../svg/ledgreen.svg);
+  }
+}
+
+@keyframes completeMemory {
+  to {
+    background: #00c000;
+    box-shadow: 0px 0px 0px 4px #017a01 !important;
+    border: inset 4px #200200;
+  }
+}
+
+@keyframes playermemoryClick {
+  to {
+    background: #289cbf;
+    box-shadow: 0px 0px 0px 4px #133e71;
+    border: inset 4px #03182e;
+  }
+}
+
+  </style>
   <body>
     <h1 id="title">START REACTOR</h1>
     <div class="container">
@@ -86,5 +573,261 @@
       })
     </script>
 
+    <script>
+      startReactor = {
+
+    computerCombination: [],
+    playerCombination: [],
+    computerCombinationPosition: 1,
+    combinationMaxPosition: 5,
+    memoryMaxCombination: 9,
+
+    audio: {
+        start: 'start.mp3',
+        fail: 'fail.mp3',
+        complete: 'complete.mp3',
+        combinations: ['0.mp3', '1.mp3', '2.mp3', '3.mp3', '4.mp3', '5.mp3', '6.mp3', '7.mp3', '8.mp3'],
+        
+        loadAudio(filename) {
+
+            const file = `./audio/${filename}?cb=${new Date().getTime()}`
+            const audio = new Audio(file)
+            audio.load()
+            return audio
+
+        },
+
+        loadAudios() {
+
+            if (typeof(startReactor.audio.start) == "object") return
+
+            startReactor.audio.start = startReactor.audio.loadAudio(startReactor.audio.start)
+            startReactor.audio.complete = startReactor.audio.loadAudio(startReactor.audio.complete)
+            startReactor.audio.fail = startReactor.audio.loadAudio(startReactor.audio.fail)
+            startReactor.audio.combinations = startReactor.audio.combinations.map ( (audio) => startReactor.audio.loadAudio(audio))
+
+        }
+        
+
+    },
+    interface: {
+
+        memoryPanel: document.querySelector(".painelMemory"),
+        computerLedPanel: document.querySelector(".computerLedPanel"),
+        playerLedPanel: document.querySelector(".playerLedPanel"),
+        playerMemory: document.querySelector(".playerMemory"),
+        playerMemoryButtons: document.getElementsByClassName("player_memory"),
+
+        turnLedOn(index, ledPanel) {
+            ledPanel.children[index].classList.add("ledOn");
+        },
+
+        turnAllLedsOff() {
+            
+            const computerLedPanel = startReactor.interface.computerLedPanel
+            const playerLedPanel = startReactor.interface.playerLedPanel
+
+            for (var i = 0; i < computerLedPanel.children.length; i++) {
+                computerLedPanel.children[i].classList.remove("ledOn");
+                playerLedPanel.children[i].classList.remove("ledOn");
+            }
+
+        },
+
+        async start() {
+            return startReactor.audio.start.play()
+        },
+
+        playItem(index, combinationPosition, location = 'computer') {
+            
+            const leds = (location == 'computer') ? startReactor.interface.computerLedPanel : startReactor.interface.playerLedPanel
+            const memPanel = startReactor.interface.memoryPanel.children[index]
+
+            memPanel.classList.add("memoryActive")
+            startReactor.interface.turnLedOn(combinationPosition, leds)
+            startReactor.audio.combinations[index].play().then(() => {
+                setTimeout(() => {
+                    memPanel.classList.remove("memoryActive")
+                }, 150)
+            })
+        },
+
+        endGame(type = "fail") {
+            
+            const memPanel = startReactor.interface.memoryPanel
+            const ledPanel = startReactor.interface.computerLedPanel
+            const audio = (type == "complete") ? startReactor.audio.complete : startReactor.audio.fail
+            const typeClasses = (type == "complete") ? ["playerMemoryComplete", "playerLedComplete"] : ["playerMemoryError", "playerLedError"]
+
+            startReactor.interface.disableButtons()
+            startReactor.interface.turnAllLedsOff()
+
+            audio.play().then(() => {
+
+                for (var i = 0; i < memPanel.children.length; i++) {
+                    if (memPanel.children[i].tagName == "DIV")
+                        memPanel.children[i].classList.add(typeClasses[0])
+                }
+                for (var i = 0; i < ledPanel.children.length; i++) {
+                    if (ledPanel.children[i].tagName == "DIV")
+                        ledPanel.children[i].classList.add(typeClasses[1])
+                }
+                setTimeout(() => {
+                    for (var i = 0; i < memPanel.children.length; i++) {
+                    if (memPanel.children[i].tagName == "DIV")
+                        memPanel.children[i].classList.remove(typeClasses[0])
+                    }
+                    for (var i = 0; i < ledPanel.children.length; i++) {
+                    if (ledPanel.children[i].tagName == "DIV")
+                        ledPanel.children[i].classList.remove(typeClasses[1])
+                    }
+                }, 900);
+
+            })
+
+        },
+
+        enableButtons() {
+
+            const playerMemory = startReactor.interface.playerMemory
+            playerMemory.classList.add('playerActive')
+
+            for (var i = 0; i < playerMemory.children.length; i++) {
+                if (playerMemory.children[i].tagName == "DIV")
+                    playerMemory.children[i].classList.add("playerMemoryActive")
+            }
+
+        },
+
+        disableButtons() { 
+
+            const playerMemory = startReactor.interface.playerMemory
+            playerMemory.classList.remove('playerActive')
+
+            for (var i = 0; i < playerMemory.children.length; i++) {
+            if (playerMemory.children[i].tagName == "DIV")
+                playerMemory.children[i].classList.remove("playerMemoryActive");
+            }
+
+        },
+        
+
+    },
+
+    async load() {
+        return new Promise(resolve => {
+            console.log("Loading Game...")
+            startReactor.audio.loadAudios()
+
+            const playerMemory  = startReactor.interface.playerMemory
+            const memory = startReactor.interface.playerMemoryButtons
+            
+            Array.prototype.forEach.call(memory, (element) => {
+
+                element.addEventListener("click", () => {
+                if (playerMemory.classList.contains("playerActive")) {
+                    startReactor.play(parseInt(element.dataset.memory))
+                    console.log("O valor do elemento clicado é: " + element.dataset.memory)
+
+                    element.style.animation = "playermemoryClick .4s"
+                    setTimeout(() => element.style.animation = "", 400)
+                }
+                })  
+
+            })
+        })
+
+
+     },
+    start() {
+
+        startReactor.computerCombination = startReactor.createCombination()
+        startReactor.computerCombinationPosition = 1
+        startReactor.playerCombination = []
+        startReactor.interface.start().then(() => {
+            setTimeout(() => {
+                startReactor.playCombination()
+            }, 500)
+        })
+
+    },
+    
+    createCombination() {
+
+        let newCombination = []
+        for (let n = 0; n < startReactor.combinationMaxPosition; n++){
+            const position = Math.floor((Math.random() * startReactor.memoryMaxCombination) + 1)
+            newCombination.push(position-1)
+        }
+        return newCombination
+
+    },
+
+    play(index) {
+
+        startReactor.interface.playItem(index, startReactor.playerCombination.length, 'player')
+        startReactor.playerCombination.push(index)
+
+        if (startReactor.isTheRightCombination(startReactor.playerCombination.length)) {
+            
+            if (startReactor.playerCombination.length == startReactor.combinationMaxPosition) {
+                startReactor.interface.endGame("complete")
+                setTimeout(() => {
+                    startReactor.start()
+                }, 1200)
+                return
+            }
+
+            if (startReactor.playerCombination.length == startReactor.computerCombinationPosition) {
+                startReactor.computerCombinationPosition++
+                setTimeout(() => {
+                        startReactor.playCombination()
+                }, 1200)
+                return
+            }
+
+        } else {
+
+            startReactor.interface.endGame("fail")
+            document.getElementById("title").textContent = "Você é o impostor"
+            setTimeout(() => {
+                document.getElementById("title").textContent = "START REACTOR"
+                startReactor.start()
+            }, 1400)
+            return
+        }
+    },
+
+    playCombination() {
+
+        startReactor.playerCombination = []
+        startReactor.interface.disableButtons()
+        startReactor.interface.turnAllLedsOff()
+
+        for (let i = 0; i <= startReactor.computerCombinationPosition - 1; i++){
+
+            setTimeout(() => {
+                startReactor.interface.playItem(startReactor.computerCombination[i], i)
+            }, 400 * (i+1))
+        }
+
+        setTimeout(() => {
+            startReactor.interface.turnAllLedsOff()
+            startReactor.interface.enableButtons()
+        }, 600 * startReactor.computerCombinationPosition)
+
+     },
+    
+    isTheRightCombination(position) {
+        
+        let computerCombination = startReactor.computerCombination.slice(0, position)
+        return ( computerCombination.toString() == startReactor.playerCombination.toString())
+
+    },
+
+}
+    </script>
+
   </body>
 </html>
+
