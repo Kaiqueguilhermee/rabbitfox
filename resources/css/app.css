@@ -539,19 +539,12 @@
 /* ESTADO FECHADO (OBRIGATÓRIO) */
 .page__navbar {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    width: 100%;
-    height: auto;
-
+    inset: 0;
     background: #0d0d0d;
     z-index: 999999;
 
     transform: translateX(-100%);
-    transition: transform 0.3s ease;
+    transition: transform .3s ease;
 
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -563,6 +556,7 @@
     transform: translateX(0);
     pointer-events: auto;
 }
+
 
 /* botão fechar */
 .close-sidebar-btn {

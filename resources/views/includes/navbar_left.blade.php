@@ -61,52 +61,47 @@
     </div>
 </nav>
 <script>
-let sidebarOpen = false;
+et sidebarOpen = false;
 let scrollPosition = 0;
 
-const sidebar = document.getElementById('navbarContent');
-const overlay = document.getElementById('sidebarOverlay');
-const openBtn = document.getElementById('openSidebarBtn');
-const closeBtn = document.querySelector('.close-sidebar-btn');
+document.addEventListener('DOMContentLoaded', () => {
 
-function openSidebar() {
-    if (sidebarOpen) return;
-    sidebarOpen = true;
+    const sidebar = document.getElementById('navbarContent');
+    const closeBtn = sidebar.querySelector('.close-sidebar-btn');
 
-    scrollPosition = window.scrollY || document.documentElement.scrollTop;
+    function openSidebar() {
+        if (sidebarOpen) return;
+        sidebarOpen = true;
 
-    document.body.style.top = `-${scrollPosition}px`;
-    document.body.classList.add('sidebar-open');
+        scrollPosition = window.scrollY || document.documentElement.scrollTop;
 
-    sidebar.classList.add('is-open');
-    overlay.classList.add('active');
+        document.body.style.top = `-${scrollPosition}px`;
+        document.body.classList.add('sidebar-open');
 
-    sidebar.scrollTop = 0;
-}
-
-function closeSidebar() {
-    if (!sidebarOpen) return;
-    sidebarOpen = false;
-
-    sidebar.classList.remove('is-open');
-    overlay.classList.remove('active');
-
-    document.body.classList.remove('sidebar-open');
-    document.body.style.top = '';
-
-    window.scrollTo(0, scrollPosition);
-}
-
-/* EVENTOS */
-openBtn.addEventListener('click', openSidebar);
-closeBtn.addEventListener('click', closeSidebar);
-overlay.addEventListener('click', closeSidebar);
-
-/* ESC (opcional) */
-document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && sidebarOpen) {
-        closeSidebar();
+        sidebar.classList.add('full-width');
     }
+
+    function closeSidebar() {
+        if (!sidebarOpen) return;
+        sidebarOpen = false;
+
+        sidebar.classList.remove('full-width');
+
+        document.body.classList.remove('sidebar-open');
+        document.body.style.top = '';
+        window.scrollTo(0, scrollPosition);
+    }
+
+    // 🔥 BOTÃO FECHAR
+    closeBtn.addEventListener('click', closeSidebar);
+
+    // 🔥 SEU BOTÃO DE ABRIR JÁ EXISTE — SÓ CONECTA
+    document.addEventListener('click', e => {
+        if (e.target.closest('[onclick*="openSidebar"]')) {
+            openSidebar();
+        }
+    });
+
 });
 </script>
 
