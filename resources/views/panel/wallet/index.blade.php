@@ -31,7 +31,7 @@
                     <div class="tab-pane fade" id="walletPane-transacoes" role="tabpanel" aria-labelledby="wallet-tab-transacoes">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="mb-0">Histórico de Transações</h4>
+                                <h4 class="mb-0">Histórico de Apostas</h4>
                             </div>
                             <div class="card-body p-0">
                                 <div class="table-responsive">
@@ -39,8 +39,6 @@
                                         <thead class="table-dark">
                                             <tr>
                                                 <th scope="col">#</th>
-                                                <th scope="col">Jogo</th>
-                                                <th scope="col">Tipo</th>
                                                 <th scope="col">Valor</th>
                                                 <th scope="col">Data</th>
                                             </tr>
@@ -50,8 +48,6 @@
                                                 @foreach($orders as $order)
                                                     <tr>
                                                         <th scope="row">{{ $order->id }}</th>
-                                                        <td>{{ $order->game }}</td>
-                                                        <td>{{ $order->type }}</td>
                                                         <td>{{ \Helper::amountFormatDecimal($order->amount) }}</td>
                                                         <td>{{ $order->dateHumanReadable }}</td>
                                                     </tr>
