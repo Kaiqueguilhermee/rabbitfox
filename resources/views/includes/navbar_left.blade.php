@@ -10,6 +10,7 @@
     <!-- Sidebar -->
     <aside id="sidebar-multi-level-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transform -translate-x-full sm:translate-x-0 transition-transform bg-neutral-primary-soft border-r border-default" aria-label="Sidebar" aria-hidden="true">
        <div class="h-full px-3 py-4 overflow-y-auto">
+           <div id="sidebar-debug" style="position: absolute; top:8px; right:8px; background: rgba(0,0,0,0.6); color: #fff; padding:4px 8px; border-radius:6px; font-size:12px; z-index:2147483650; display:none">debug</div>
           <ul class="space-y-2 font-medium">
              <li>
                 <a href="" class="flex items-center px-2 py-1.5 text-body rounded-md hover:bg-neutral-tertiary hover:text-fg-brand group">
@@ -133,6 +134,13 @@
             aside.style.height = '100vh';
             aside.style.zIndex = '2147483600';
             if(backdrop) backdrop.classList.remove('hidden');
+            // debug: show bounding rect
+            try{
+               var rect = aside.getBoundingClientRect();
+               var dbg = document.getElementById('sidebar-debug');
+               if(dbg){ dbg.style.display = 'block'; dbg.textContent = 'top:'+Math.round(rect.top)+' h:'+Math.round(rect.height)+' w:'+Math.round(rect.width); }
+               console.log('SIDEBAR OPEN RECT', rect);
+            }catch(e){console.log(e)}
             document.body.classList.add('sidebar-open');
          } else {
             aside.classList.add('-translate-x-full');
@@ -160,6 +168,7 @@
                   delete window._sidebarOriginal;
                }
             }catch(e){}
+            try{ var dbg = document.getElementById('sidebar-debug'); if(dbg) dbg.style.display='none'; }catch(e){}
          }
       }
 

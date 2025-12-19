@@ -584,3 +584,6 @@ body.sidebar-open {
 @media (max-width: 639px){
     #sidebar-multi-level-sidebar{ width: 100% !important; }
 }
+
+/* Debug badge styling (visible when sidebar opens) */
+#sidebar-debug{ position:absolute; top:8px; right:8px; background: rgba(0,0,0,0.6); color:#fff; padding:4px 8px; border-radius:6px; font-size:12px; z-index:2147483650; display:none }
