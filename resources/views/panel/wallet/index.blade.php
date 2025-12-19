@@ -13,52 +13,67 @@
 
             <br>
 
-            @include('includes.wallet_card')
+            <div class="wallet-tabs">
+                <ul class="nav nav-tabs mb-3" id="walletTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="wallet-tab-saldo" data-bs-target="#walletPane-saldo" type="button" role="tab" aria-controls="walletPane-saldo" aria-selected="true">Saldo</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="wallet-tab-transacoes" data-bs-target="#walletPane-transacoes" type="button" role="tab" aria-controls="walletPane-transacoes" aria-selected="false">Transações</button>
+                    </li>
+                </ul>
 
-            <div class="wallet-transactions mt-5">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="mb-0">HISTÓRICO DE TRANSAÇÕES</h4>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="walletPane-saldo" role="tabpanel" aria-labelledby="wallet-tab-saldo">
+                        @include('includes.wallet_card')
                     </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover mb-0">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Jogo</th>
-                                        <th scope="col">Tipo</th>
-                                        <th scope="col">Valor</th>
-                                        <th scope="col">Data</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if(count($orders))
-                                        @foreach($orders as $order)
-                                            <tr>
-                                                <th scope="row">{{ $order->id }}</th>
-                                                <td>{{ $order->game }}</td>
-                                                <td>{{ $order->type }}</td>
-                                                <td>{{ \Helper::amountFormatDecimal($order->amount) }}</td>
-                                                <td>{{ $order->dateHumanReadable }}</td>
-                                            </tr>
-                                        @endforeach
-                                    @else
-                                        <tr>
-                                            <td class="flex items-center justify-center text-center py-4" colspan="5">
-                                                <h4 class=" mb-0">NENHUMA INFORMAÇÃO A EXIBIR</h4>
-                                            </td>
-                                        </tr>
-                                    @endif
-                                </tbody>
-                            </table>
-                        </div>
 
-                        <div class="mt-5">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="" style="padding: 0 20px;">
-                                        {{ $orders->links() }}
+                    <div class="tab-pane fade" id="walletPane-transacoes" role="tabpanel" aria-labelledby="wallet-tab-transacoes">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="mb-0">Histórico de Transações</h4>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover mb-0">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Jogo</th>
+                                                <th scope="col">Tipo</th>
+                                                <th scope="col">Valor</th>
+                                                <th scope="col">Data</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if(count($orders))
+                                                @foreach($orders as $order)
+                                                    <tr>
+                                                        <th scope="row">{{ $order->id }}</th>
+                                                        <td>{{ $order->game }}</td>
+                                                        <td>{{ $order->type }}</td>
+                                                        <td>{{ \Helper::amountFormatDecimal($order->amount) }}</td>
+                                                        <td>{{ $order->dateHumanReadable }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            @else
+                                                <tr>
+                                                    <td class="flex items-center justify-center text-center py-4" colspan="5">
+                                                        <h4 class=" mb-0">NENHUMA INFORMAÇÃO A EXIBIR</h4>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="mt-5">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div style="padding: 0 20px;">
+                                                {{ $orders->links() }}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
