@@ -60,27 +60,47 @@
         </ul>
     </div>
 </nav>
+<div id="sidebarBackdrop" class="sidebar-backdrop" style="display:none" onclick="closeSidebar()" aria-hidden="true"></div>
 
 <script>
     (function(){
         function getNav(){ return document.getElementById('navbarContent'); }
+        function getBackdrop(){
+            var b = document.getElementById('sidebarBackdrop');
+            if(!b){
+                b = document.createElement('div');
+                b.id = 'sidebarBackdrop';
+                b.className = 'sidebar-backdrop';
+                b.style.display = 'none';
+                b.onclick = closeSidebar;
+                document.body.appendChild(b);
+            }
+            return b;
+        }
+
         window.openSidebar = function(){
             var nav = getNav();
+            var back = getBackdrop();
             if(!nav) return;
             nav.classList.add('full-width');
+            nav.setAttribute('aria-hidden','false');
             document.body.classList.add('sidebar-open');
+            if(back) back.style.display = 'block';
+            nav.style.zIndex = '2147483647';
         }
+
         window.closeSidebar = function(){
             var nav = getNav();
+            var back = document.getElementById('sidebarBackdrop');
             if(!nav) return;
             nav.classList.remove('full-width');
+            nav.setAttribute('aria-hidden','true');
             document.body.classList.remove('sidebar-open');
+            if(back) back.style.display = 'none';
+            // cleanup any inline styles left
+            try{ nav.style.willChange = ''; nav.style.zIndex = ''; nav.style.transform = ''; }catch(e){}
         }
-        // close on Escape key
+
         document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeSidebar(); });
-        // ensure nav is not clipped by any parent style on load
-        document.addEventListener('DOMContentLoaded', function(){
-            var nav = getNav(); if(!nav) return; nav.style.willChange = 'transform,opacity';
-        });
     })();
 </script>

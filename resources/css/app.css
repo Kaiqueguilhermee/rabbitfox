@@ -577,6 +577,17 @@ body.sidebar-open {
     overflow: hidden !important;
     touch-action: none !important;
 }
+
+/* Backdrop behind the sidebar when open */
+.sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 2147483640;
+    display: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
 .close-sidebar-btn {
     position: fixed;
     top: 12px;
