@@ -16,12 +16,11 @@
                     <div class="col-lg-4">
                         <div class="profile-card p-4 rounded-3 shadow-sm text-center">
                             <div class="profile-avatar mb-3">
-                                @php $avatar = auth()->user()->avatar ?? null; @endphp
-                                @if($avatar)
-                                    <img src="{{ asset('storage/'.$avatar) }}" alt="Avatar" class="rounded-circle" width="120" height="120">
-                                @else
-                                    <div class="avatar-placeholder rounded-circle d-inline-flex align-items-center justify-content-center">{{ strtoupper(substr(auth()->user()->name ?? 'U',0,1)) }}</div>
-                                @endif
+                                @php
+                                    $avatar = auth()->user()->avatar ?? null;
+                                    $avatarUrl = $avatar ? \Storage::url($avatar) : 'https://cdn.7games.bet/content/images/avatars/v2/7.webp';
+                                @endphp
+                                <img src="{{ $avatarUrl }}" alt="Avatar" class="rounded-circle" width="120" height="120">
                             </div>
                             <h5 class="mb-1">{{ auth()->user()->name }}</h5>
                             <p class="text-muted small mb-3">Membro desde {{ auth()->user()->created_at->format('M Y') }}</p>
@@ -32,7 +31,7 @@
                                     <label class="btn btn-sm btn-outline-primary mb-2" for="avatarInput">Alterar avatar</label>
                                     <input id="avatarInput" name="avatar" type="file" accept="image/*" class="d-none">
                                 </form>
-                                <a href="{{ route('panel.profile.security') }}" class="btn btn-outline-secondary btn-sm">Segurança da conta</a>
+                                <button id="openEditTab" type="button" class="btn btn-outline-secondary btn-sm">Alterar dados</button>
                             </div>
                             <div class="mt-2 small text-muted">Formato permitido: JPG/PNG. Máx 2MB.</div>
                         </div>
@@ -40,57 +39,94 @@
 
                     <div class="col-lg-8">
                         <div class="card rounded-3 shadow-sm">
-                            <div class="card-body p-4">
-                                <h4 class="mb-3">Minha Conta</h4>
-                                <form action="{{ route('panel.profile.store') }}" method="post">
-                                    @method('post')
-                                    @csrf
-                                    <div class="row g-3">
-                                        <div class="col-12">
-                                            <label class="form-label small text-muted">Nome completo</label>
-                                            <input type="text" name="name" placeholder="Nome Completo" class="form-control form-control-lg @error('name') is-invalid @enderror" value="{{ auth()->user()->name ?? old('name') }}">
-                                            @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                                        </div>
+                            <div class="card-body p-0">
+                                <ul class="nav nav-tabs px-3 pt-3" id="profileTabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="profile-tab-info" data-bs-target="#profilePane-info" type="button" role="tab" aria-controls="profilePane-info" aria-selected="true">Informações</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="profile-tab-edit" data-bs-target="#profilePane-edit" type="button" role="tab" aria-controls="profilePane-edit" aria-selected="false">Editar</button>
+                                    </li>
+                                </ul>
 
-                                        <div class="col-md-6">
-                                            <label class="form-label small text-muted">Telefone</label>
-                                            <input type="text" name="phone" placeholder="(00) 00000-0000" class="form-control sp_celphones @error('phone') is-invalid @enderror" value="{{ auth()->user()->phone ?? old('phone') }}">
-                                            @error('phone') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <label class="form-label small text-muted">CPF</label>
-                                            <input type="text" name="cpf" placeholder="000.000.000-00" class="form-control cpf @error('cpf') is-invalid @enderror" value="{{ auth()->user()->cpf ?? old('cpf') }}">
-                                            @error('cpf') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                                        </div>
-
-                                        <div class="col-12">
-                                            <label class="form-label small text-muted">E-mail</label>
-                                            <input type="email" name="email" readonly class="form-control" value="{{ auth()->user()->email ?? old('email') }}">
-                                        </div>
-
-                                        <div class="col-12 mt-2">
-                                            <hr>
-                                            <h6 class="mb-2">Alterar senha</h6>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <label class="form-label small text-muted">Senha atual</label>
-                                            <input type="password" name="old_password" placeholder="Senha antiga" class="form-control @error('old_password') is-invalid @enderror">
-                                            @error('old_password') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <label class="form-label small text-muted">Nova senha</label>
-                                            <input type="password" name="new_password" placeholder="Nova senha" class="form-control @error('new_password') is-invalid @enderror">
-                                            @error('new_password') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                                        </div>
-
-                                        <div class="col-12 text-end mt-3">
-                                            <button type="submit" class="btn btn-success btn-lg">Salvar alterações</button>
+                                <div class="tab-content p-4">
+                                    <div class="tab-pane fade show active" id="profilePane-info" role="tabpanel" aria-labelledby="profile-tab-info">
+                                        <h5 class="mb-3">Informações</h5>
+                                        <div class="row g-3">
+                                            <div class="col-6">
+                                                <div class="text-muted small">Nome</div>
+                                                <div class="fw-semibold">{{ auth()->user()->name }}</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="text-muted small">E-mail</div>
+                                                <div class="fw-semibold">{{ auth()->user()->email }}</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="text-muted small">Telefone</div>
+                                                <div class="fw-semibold">{{ auth()->user()->phone }}</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="text-muted small">CPF</div>
+                                                <div class="fw-semibold">{{ auth()->user()->cpf }}</div>
+                                            </div>
                                         </div>
                                     </div>
-                                </form>
+
+                                    <div class="tab-pane fade" id="profilePane-edit" role="tabpanel" aria-labelledby="profile-tab-edit">
+                                        <h5 class="mb-3">Editar perfil</h5>
+                                        <div class="card-body p-0">
+                                            <form action="{{ route('panel.profile.store') }}" method="post">
+                                                @method('post')
+                                                @csrf
+                                                <div class="row g-3">
+                                                    <div class="col-12">
+                                                        <label class="form-label small text-muted">Nome completo</label>
+                                                        <input type="text" name="name" placeholder="Nome Completo" class="form-control form-control-lg @error('name') is-invalid @enderror" value="{{ auth()->user()->name ?? old('name') }}">
+                                                        @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <label class="form-label small text-muted">Telefone</label>
+                                                        <input type="text" name="phone" placeholder="(00) 00000-0000" class="form-control sp_celphones @error('phone') is-invalid @enderror" value="{{ auth()->user()->phone ?? old('phone') }}">
+                                                        @error('phone') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <label class="form-label small text-muted">CPF</label>
+                                                        <input type="text" name="cpf" placeholder="000.000.000-00" class="form-control cpf @error('cpf') is-invalid @enderror" value="{{ auth()->user()->cpf ?? old('cpf') }}">
+                                                        @error('cpf') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                                    </div>
+
+                                                    <div class="col-12">
+                                                        <label class="form-label small text-muted">E-mail</label>
+                                                        <input type="email" name="email" readonly class="form-control" value="{{ auth()->user()->email ?? old('email') }}">
+                                                    </div>
+
+                                                    <div class="col-12 mt-2">
+                                                        <hr>
+                                                        <h6 class="mb-2">Alterar senha</h6>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <label class="form-label small text-muted">Senha atual</label>
+                                                        <input type="password" name="old_password" placeholder="Senha antiga" class="form-control @error('old_password') is-invalid @enderror">
+                                                        @error('old_password') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <label class="form-label small text-muted">Nova senha</label>
+                                                        <input type="password" name="new_password" placeholder="Nova senha" class="form-control @error('new_password') is-invalid @enderror">
+                                                        @error('new_password') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                                    </div>
+
+                                                    <div class="col-12 text-end mt-3">
+                                                        <button type="submit" class="btn btn-success btn-lg">Salvar alterações</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -153,6 +189,37 @@
             // click handler for the label button
             var label = document.querySelector('label[for="avatarInput"]');
             if(label){ label.addEventListener('click', function(){ input.click(); }); }
+            // profile tabs handler
+            function setupProfileTabs(){
+                var tabsRoot = document.getElementById('profileTabs');
+                if(!tabsRoot) return;
+                var container = document.querySelector('.tab-content');
+                var panes = container ? Array.from(container.querySelectorAll('.tab-pane')) : [];
+
+                function hideAll(){ panes.forEach(p => { p.classList.remove('show','active'); p.style.display='none'; p.setAttribute('aria-hidden','true'); }); }
+
+                hideAll();
+                var first = panes[0];
+                if(first){ first.classList.add('show','active'); first.style.display=''; first.setAttribute('aria-hidden','false'); }
+
+                tabsRoot.querySelectorAll('.nav-link').forEach(function(btn){
+                    btn.addEventListener('click', function(e){
+                        e.preventDefault();
+                        var target = document.querySelector(btn.getAttribute('data-bs-target'));
+                        if(!target) return;
+                        tabsRoot.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
+                        btn.classList.add('active');
+                        hideAll();
+                        target.classList.add('show','active'); target.style.display=''; target.setAttribute('aria-hidden','false');
+                    });
+                });
+
+                // openEditTab button
+                var openEdit = document.getElementById('openEditTab');
+                if(openEdit){ openEdit.addEventListener('click', function(){ var editBtn = document.getElementById('profile-tab-edit'); if(editBtn) editBtn.click(); }); }
+            }
+
+            setupProfileTabs();
         });
     </script>
 @endpush
