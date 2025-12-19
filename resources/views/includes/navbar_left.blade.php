@@ -4,7 +4,7 @@
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasSidebarLabel">Menu</h5>
+            <h5 class="offcanvas-title" id="offcanvasSidebarLabel"</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body p-0">
@@ -13,7 +13,7 @@
                     <li class="mb-3">
                         <a href="" class="d-flex align-items-center gap-2 px-2 py-1 rounded text-decoration-none btn btn-success text-white font-bold btn-gains">
                             <i class="fa-light fa-rocket-launch"></i>
-                            <span>Ganhe R$ 50 grátis</span>
+                            <span class="text-center">Ganhe R$ 50 grátis</span>
                         </a>
                     </li>
 
