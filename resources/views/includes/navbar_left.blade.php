@@ -1,7 +1,14 @@
-<nav id="navbarContent" class="page__navbar">
-    <button class="close-sidebar-btn" type="button" onclick="closeSidebar()" aria-label="Fechar menu">&times;</button>
-    <div class="navbar_menu_list">
-        <ul id="nav_accordion" class="navbar_list sidebar nav flex-column">
+<nav id="navbarContent" class="page__navbar" aria-hidden="true" role="navigation">
+    <div class="sidebar-inner">
+        <div class="sidebar-header">
+            <a href="{{ url('/') }}" class="sidebar-logo" title="Home">
+                <img src="{{ asset('assets/images/svg/home2.svg') }}" alt="logo" width="28">
+            </a>
+            <button class="close-sidebar-btn" type="button" onclick="closeSidebar()" aria-label="Fechar menu">&times;</button>
+        </div>
+
+        <div class="navbar_menu_list">
+            <ul id="nav_accordion" class="navbar_list sidebar nav flex-column">
             <li class="navbar_list_links mb-3">
                 <a href="" class="btn btn-success text-white font-bold btn-gains">
                     Ganhe R$ 50 grátis
@@ -58,6 +65,8 @@
 
             {{-- Categoria removida do menu --}}
         </ul>
+            </ul>
+        </div>
     </div>
 </nav>
 <div id="sidebarBackdrop" class="sidebar-backdrop" style="display:none" onclick="closeSidebar()" aria-hidden="true"></div>
