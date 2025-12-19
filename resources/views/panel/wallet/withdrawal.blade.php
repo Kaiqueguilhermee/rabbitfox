@@ -7,9 +7,25 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function(){
-            // Fallback tab handler if Bootstrap JS isn't present
+            // Fallback tab handler that forces pane visibility (works without Bootstrap JS)
             var tabsRoot = document.getElementById('walletTabs');
-            if(!tabsRoot) return;
+            var container = document.querySelector('.wallet-tabs .tab-content');
+            if(!tabsRoot || !container) return;
+
+            var panes = Array.from(container.querySelectorAll('.tab-pane'));
+
+            function hideAllPanes(){
+                panes.forEach(function(p){
+                    p.classList.remove('show','active');
+                    p.setAttribute('aria-hidden','true');
+                    p.style.display = 'none';
+                });
+            }
+
+            // initialize: hide all then show the one marked active (if any)
+            hideAllPanes();
+            var initial = container.querySelector('.tab-pane.active') || container.querySelector('.tab-pane.show') || panes[0];
+            if(initial){ initial.classList.add('show','active'); initial.setAttribute('aria-hidden','false'); initial.style.display = ''; }
 
             tabsRoot.querySelectorAll('.nav-link').forEach(function(btn){
                 btn.addEventListener('click', function(e){
@@ -18,21 +34,19 @@
                     if(!targetSelector) return;
 
                     // Deactivate other buttons
-                    tabsRoot.querySelectorAll('.nav-link').forEach(function(b){ b.classList.remove('active'); });
-                    btn.classList.add('active');
+                    tabsRoot.querySelectorAll('.nav-link').forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+                    btn.classList.add('active'); btn.setAttribute('aria-selected','true');
 
-                    // Hide other panes
-                    var container = document.querySelector('.wallet-tabs .tab-content');
-                    if(!container) return;
-                    container.querySelectorAll('.tab-pane').forEach(function(p){
-                        p.classList.remove('show','active');
-                    });
-
-                    // Show target pane
+                    // Hide other panes and show the requested one
+                    hideAllPanes();
                     var target = document.querySelector(targetSelector);
                     if(target){
                         target.classList.add('show','active');
+                        target.setAttribute('aria-hidden','false');
+                        target.style.display = '';
                     }
+                    // scroll into view on small screens
+                    if(window.innerWidth < 768 && target) target.scrollIntoView({behavior: 'smooth', block: 'start'});
                 });
             });
         });
