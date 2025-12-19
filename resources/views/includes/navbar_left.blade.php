@@ -4,7 +4,7 @@
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasSidebarLabel">Receba Recompensa</h5>
+            <h5 class="offcanvas-title" id="offcanvasSidebarLabel">Receba Recompensas</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body p-0">
