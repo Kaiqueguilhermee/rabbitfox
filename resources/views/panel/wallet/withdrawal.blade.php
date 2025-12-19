@@ -6,7 +6,7 @@
 
 @push('scripts')
     <script>
-        (function(){
+        document.addEventListener('DOMContentLoaded', function(){
             // Fallback tab handler if Bootstrap JS isn't present
             var tabsRoot = document.getElementById('walletTabs');
             if(!tabsRoot) return;
@@ -35,7 +35,7 @@
                     }
                 });
             });
-        })();
+        });
     </script>
 @endpush
 
