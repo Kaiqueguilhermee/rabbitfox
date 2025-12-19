@@ -532,6 +532,13 @@
 }
 .profile-avatar img { object-fit: cover; }
 
+/* Ensure long emails wrap inside the profile card */
+.profile-email {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    white-space: normal;
+}
+
 
 
 
