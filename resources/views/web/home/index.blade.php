@@ -57,7 +57,7 @@
                  <br>
                 <form action="{{ url('/') }}" method="GET" class="mb-6">
                     <div class="relative">
-                        <input type="text" name="search" value="{{ request('search') }}" class="search-input w-full pl-4 pr-12" placeholder="Digite o que você procura..." aria-label="Pesquisar">
+                        <input id="home-search-input" type="text" name="search" value="{{ request('search') }}" class="search-input w-full pl-4 pr-12" placeholder="Digite o que você procura..." aria-label="Pesquisar">
                         <button type="submit" class="absolute right-4 top-1/2 -translate-y-1/2 text-primary text-xl bg-transparent border-0 p-0 m-0" style="background: none; border: none;">
                             <i class="fa-duotone fa-magnifying-glass"></i>
                         </button>
@@ -224,5 +224,55 @@
                 autoplay: 'play',
             }).mount();
         } );
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var input = document.getElementById('home-search-input');
+            if (!input) return;
+
+            var messages = [
+                'Digite o que você procura...',
+                'Experimente Fortune Tiger',
+                'Tente a sorte em Fortune OX',
+                'Procure por jogos, bônus ou provedores'
+            ];
+            var idx = 0;
+            var rotInterval = 3000;
+            var rotTimer = null;
+
+            function setPlaceholder() {
+                if (document.activeElement === input) return;
+                if (input.value && input.value.trim().length > 0) return;
+                input.setAttribute('placeholder', messages[idx]);
+                idx = (idx + 1) % messages.length;
+            }
+
+            function startRotator() {
+                if (rotTimer) return;
+                rotTimer = setInterval(setPlaceholder, rotInterval);
+            }
+
+            function stopRotator() {
+                if (!rotTimer) return;
+                clearInterval(rotTimer);
+                rotTimer = null;
+            }
+
+            // Start
+            setPlaceholder();
+            startRotator();
+
+            input.addEventListener('focus', function() {
+                stopRotator();
+            });
+
+            input.addEventListener('blur', function() {
+                if (!input.value || input.value.trim().length === 0) {
+                    setPlaceholder();
+                    startRotator();
+                }
+            });
+        });
     </script>
 @endpush
