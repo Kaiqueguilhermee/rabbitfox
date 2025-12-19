@@ -60,3 +60,14 @@
         </ul>
     </div>
 </nav>
+<script>
+function openSidebar() {
+    document.body.classList.add('sidebar-open');
+    document.getElementById('navbarContent').classList.add('full-width');
+}
+
+function closeSidebar() {
+    document.body.classList.remove('sidebar-open');
+    document.getElementById('navbarContent').classList.remove('full-width');
+}
+</script>
