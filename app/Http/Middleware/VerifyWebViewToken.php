@@ -19,7 +19,6 @@ class VerifyWebViewToken
         $path = trim($request->path(), '/');
 
         // Paths to exclude from token enforcement (public assets, health, rabbit-amoung itself, webhooks, API, etc.)
-<?php
 $exclusions = [
     '', // homepage
     // Páginas institucionais e públicas
