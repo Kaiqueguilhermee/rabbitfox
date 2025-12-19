@@ -89,3 +89,44 @@
 @push('styles')
 
 @endpush
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    var tabsContainer = document.getElementById('walletTabs');
+    if(!tabsContainer) return;
+    var tabButtons = tabsContainer.querySelectorAll('[data-bs-target]');
+
+    tabButtons.forEach(function(btn){
+        btn.addEventListener('click', function(e){
+            // If Bootstrap's tab behavior is present, let it handle; otherwise fallback
+            if(typeof bootstrap !== 'undefined' && bootstrap.Tab) return;
+
+            var targetSelector = btn.getAttribute('data-bs-target');
+            if(!targetSelector) return;
+
+            // deactivate nav links
+            tabsContainer.querySelectorAll('.nav-link').forEach(function(n){
+                n.classList.remove('active');
+                n.setAttribute('aria-selected','false');
+            });
+
+            // hide panes
+            var panes = document.querySelectorAll('.tab-content .tab-pane');
+            panes.forEach(function(p){ p.classList.remove('show','active'); });
+
+            // activate clicked
+            btn.classList.add('active');
+            btn.setAttribute('aria-selected','true');
+
+            var pane = document.querySelector(targetSelector);
+            if(pane){ pane.classList.add('show','active');
+                // if there are links (pagination) that rely on anchors, ensure they remain visible
+                var firstFocusable = pane.querySelector('a,button,input,select,textarea');
+                if(firstFocusable) firstFocusable.focus({preventScroll:true});
+            }
+        });
+    });
+});
+</script>
+@endpush
