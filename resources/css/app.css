@@ -563,27 +563,3 @@
 body.sidebar-open {
     overflow: hidden;
 }
-
-/* Force-fullscreen when sidebar is marked open — helps WebView clipping issues */
-.page__navbar.full-width,
-.page__navbar[aria-hidden="false"] {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    inset: 0 !important;
-    width: 100% !important;
-    height: 100vh !important;
-    min-height: 100vh !important;
-    z-index: 2147483600 !important;
-    background: var(--cor-de-fundo, #0d131c) !important;
-    color: var(--cor-texto-geral, #ffffff) !important;
-    overflow: auto !important;
-}
-
-.page__navbar.full-width .navbar_menu_list,
-.page__navbar[aria-hidden="false"] .navbar_menu_list {
-    height: calc(100vh - 72px) !important;
-    overflow-y: auto !important;
-}
