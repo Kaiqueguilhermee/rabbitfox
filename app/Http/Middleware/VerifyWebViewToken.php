@@ -37,6 +37,7 @@ class VerifyWebViewToken
             }
         }
 
+
         // Accept token from header, Authorization Bearer, cookie or query
         $token = $request->header('X-App-Token') ?: $request->query('app_token');
         if (empty($token)) {
@@ -48,6 +49,13 @@ class VerifyWebViewToken
         if (empty($token)) {
             $token = $request->cookie('app_token');
         }
+
+        // Log sempre o token recebido (ou ausência)
+        Log::info('VerifyWebViewToken: token recebido', [
+            'path' => $path,
+            'token' => $token ?? null,
+            'ua' => substr($ua,0,200)
+        ]);
 
         if (empty($token)) {
             Log::info('VerifyWebViewToken: missing token', ['path'=>$path, 'ua'=>substr($ua,0,200)]);
