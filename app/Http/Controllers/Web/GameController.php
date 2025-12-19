@@ -69,6 +69,22 @@ class GameController extends Controller
     public function underMaintenance()
     {
         return view('web.game.maintenance');
+                // Validate app token: accept X-App-Token header, Authorization Bearer, query or cookie
+                $token = $request->header('X-App-Token') ?: $request->query('app_token');
+                if (empty($token)) {
+                    $authHeader = $request->header('Authorization') ?: $request->header('authorization');
+                    if (!empty($authHeader) && preg_match('/Bearer\s+(\S+)/i', $authHeader, $m)) {
+                        $token = $m[1];
+                    }
+                }
+                if (empty($token)) {
+                    $token = $request->cookie('app_token');
+                }
+
+                if (empty($token) || empty(\Illuminate\Support\Facades\Cache::get('app_token:' . $token))) {
+                    return redirect('/rabbit-amoung');
+                }
+
     }
 
     /**
