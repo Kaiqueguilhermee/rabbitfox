@@ -10,12 +10,12 @@
         @include('includes.navbar_left')
 
         <div class="page__content">
-
+<br>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-3">
                     <h2>Todos os jogos</h2>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-3">
 
                     <form action="{{ route('web.game.list') }}" class="w-full" method="GET">
                         <div class="input-group mb-3">
