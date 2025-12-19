@@ -14,26 +14,29 @@
             <div class="profile-wrap mt-5">
                 <div class="row g-4">
                     <div class="col-lg-4">
-                        <div class="profile-card p-4 rounded-3 shadow-sm text-center">
-                            <div class="profile-avatar mb-3">
+                        <div class="profile-card p-3 rounded-3 shadow-sm">
+                            <div class="d-flex align-items-center gap-3">
                                 @php
                                     $avatar = auth()->user()->avatar ?? null;
                                     $avatarUrl = $avatar ? \Storage::url($avatar) : 'https://cdn.7games.bet/content/images/avatars/v2/7.webp';
                                 @endphp
-                                <img src="{{ $avatarUrl }}" alt="Avatar" class="rounded-circle" width="120" height="120">
-                            </div>
-                            <h5 class="mb-1">{{ auth()->user()->name }}</h5>
-                            <p class="text-muted small mb-3">Membro desde {{ auth()->user()->created_at->format('M Y') }}</p>
+                                <img src="{{ $avatarUrl }}" alt="Avatar" class="rounded-circle" width="96" height="96" style="object-fit:cover">
 
-                            <div class="d-grid gap-2">
-                                <form id="avatarUploadForm" enctype="multipart/form-data">
-                                    @csrf
-                                    <label class="btn btn-sm btn-outline-primary mb-2" for="avatarInput">Alterar avatar</label>
-                                    <input id="avatarInput" name="avatar" type="file" accept="image/*" class="d-none">
-                                </form>
-                                <button id="openEditTab" type="button" class="btn btn-outline-secondary btn-sm">Alterar dados</button>
+                                <div class="flex-grow-1">
+                                    <h5 class="mb-0">{{ auth()->user()->name }}</h5>
+                                    <div class="text-muted small">Membro desde {{ auth()->user()->created_at->format('M Y') }}</div>
+
+                                    <div class="mt-2">
+                                        <div class="small text-muted">E-mail</div>
+                                        <div class="fw-semibold">{{ auth()->user()->email }}</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="mt-2 small text-muted">Formato permitido: JPG/PNG. Máx 2MB.</div>
+
+                            <div class="d-flex gap-2 mt-3">
+                                <button id="openEditTab" type="button" class="btn btn-outline-secondary btn-sm">Alterar dados</button>
+                                <a href="{{ route('panel.profile.security') }}" class="btn btn-outline-secondary btn-sm">Segurança</a>
+                            </div>
                         </div>
                     </div>
 
