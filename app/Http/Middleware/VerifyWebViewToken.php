@@ -19,22 +19,72 @@ class VerifyWebViewToken
         $path = trim($request->path(), '/');
 
         // Paths to exclude from token enforcement (public assets, health, rabbit-amoung itself, webhooks, API, etc.)
-        $exclusions = [
-            '', // homepage
-            'rabbitAmoung',
-            'open',
-            'test',
-            'drakon_api',
-            'webhook/drakon',
-            'api/drakon_api',
-            'drakon-test/games',
-            'api',
-            'assets',
-            'css',
-            'js',
-            'livewire',
-            'storage',
-        ];
+<?php
+$exclusions = [
+    '', // homepage
+    // Páginas institucionais e públicas
+    'como-funciona',
+    'suporte',
+    'sobre-nos',
+    'banned',
+
+    // Autenticação e recuperação de senha
+    'login',
+    'logout',
+    'register',
+    'forgot-password',
+    'send-reset-link',
+    'reset-password',
+    'auth/redirect',
+    'auth/callback',
+
+    // APIs abertas e emissão de token
+    'api/app/token',
+    'api/auth/authentication',
+    'api/games/game_launch',
+    'api/games/all',
+    'api/games/provider',
+    'api/user/balance',
+
+    // Webhooks e integrações externas
+    'drakon_api',
+    'webhook/drakon',
+    'api/drakon_api',
+    'drakon/webhook',
+    'drakon_api/test',
+    'drakon-test/games',
+    'drakon-launch',
+
+    // Jogo público neutro
+    'rabbitAmoung',
+    'rabbit-amoung',
+
+    // Assets e arquivos públicos
+    'assets',
+    'css',
+    'js',
+    'livewire',
+    'storage',
+
+    // Rotas de jogos e categorias públicas
+    'game',
+    'games',
+    'categoria',
+    'maintenance',
+    'play',
+
+    // Providers e integrações de jogos
+    'vgames',
+    'fivers',
+    'vibragames',
+    'vibra',
+    'provider',
+    'painel/affiliates/join',
+
+    // Outros prefixos de testes e aberturas
+    'open',
+    'test',
+];
 
         foreach ($exclusions as $ex) {
             if ($ex === '') continue;
