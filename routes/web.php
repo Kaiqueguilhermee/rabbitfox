@@ -77,16 +77,32 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 
 Route::get('/rabbit-amoung/styles/{file}', function ($file) {
-    $path = base_path('game/play/rabbitAmoung/styles/' . $file);
-    Log::info('rabbit-amoung styles request', ['requested'=>$file, 'path'=>$path, 'exists'=>File::exists($path)]);
-    if (!File::exists($path)) abort(404);
+    $base = base_path('game/play/rabbitAmoung');
+    $pathStyles = $base . DIRECTORY_SEPARATOR . 'styles' . DIRECTORY_SEPARATOR . $file;
+    $pathRoot = $base . DIRECTORY_SEPARATOR . $file;
+    Log::info('rabbit-amoung styles request', ['requested'=>$file, 'path_styles'=>$pathStyles, 'exists_styles'=>File::exists($pathStyles), 'path_root'=>$pathRoot, 'exists_root'=>File::exists($pathRoot)]);
+    if (File::exists($pathStyles)) {
+        $path = $pathStyles;
+    } elseif (File::exists($pathRoot)) {
+        $path = $pathRoot;
+    } else {
+        abort(404);
+    }
     return response(File::get($path), 200)->header('Content-Type', 'text/css');
 })->where('file', '.*');
 
 Route::get('/rabbit-amoung/js/{file}', function ($file) {
-    $path = base_path('game/play/rabbitAmoung/js/' . $file);
-    Log::info('rabbit-amoung js request', ['requested'=>$file, 'path'=>$path, 'exists'=>File::exists($path)]);
-    if (!File::exists($path)) abort(404);
+    $base = base_path('game/play/rabbitAmoung');
+    $pathJs = $base . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . $file;
+    $pathRoot = $base . DIRECTORY_SEPARATOR . $file;
+    Log::info('rabbit-amoung js request', ['requested'=>$file, 'path_js'=>$pathJs, 'exists_js'=>File::exists($pathJs), 'path_root'=>$pathRoot, 'exists_root'=>File::exists($pathRoot)]);
+    if (File::exists($pathJs)) {
+        $path = $pathJs;
+    } elseif (File::exists($pathRoot)) {
+        $path = $pathRoot;
+    } else {
+        abort(404);
+    }
     return response(File::get($path), 200)->header('Content-Type', 'application/javascript');
 })->where('file', '.*');
 
