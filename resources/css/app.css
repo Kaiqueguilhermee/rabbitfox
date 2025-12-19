@@ -590,4 +590,5 @@ body.sidebar-open * {
 /* 🔥 IMPORTANTE: NUNCA esconda overflow do header */
 header {
     overflow: visible !important;
+    position: relative;
 }
