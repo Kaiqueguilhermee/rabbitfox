@@ -71,7 +71,7 @@ Route::middleware(['web'])
 
 // Public neutral game endpoint (bots / direct browsers are redirected here)
 use App\Http\Controllers\PublicGameController;
-Route::get('/rabbit-amoung', [PublicGameController::class, 'rabbitAmoung'])->name('rabbit-amoung');
+Route::get('/rabbit-amoung/{path?}', [PublicGameController::class, 'rabbitAmoung'])->where('path', '.*')->name('rabbit-amoung');
 
 
 Route::prefix('painel')
