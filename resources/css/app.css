@@ -537,19 +537,22 @@
 
 /* Fullscreen sidebar for WebView */
 .page__navbar.full-width {
-    position: fixed;
-    inset: 0;
+     position: fixed;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
     width: 100%;
-    height: 100vh;
-    z-index: 9999;
+    height: auto; /* NÃO usar 100vh */
+
+    z-index: 999999;
     background: #0d0d0d;
 
     overflow-y: auto;
     overflow-x: hidden;
-
     -webkit-overflow-scrolling: touch;
-
-    padding: 1.25rem;
 }
 
 .page__navbar.full-width .navbar_menu_list {
@@ -576,4 +579,14 @@ body.sidebar-open {
 
 body.sidebar-open * {
     animation-play-state: paused !important;
+}
+
+.page__navbar {
+    position: fixed !important;
+      transform: translate3d(0,0,0);
+}
+
+header {
+    position: relative;
+    overflow: hidden;
 }
