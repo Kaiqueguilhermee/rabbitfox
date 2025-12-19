@@ -28,7 +28,7 @@
 
                                     <div class="mt-2">
                                         <div class="small text-muted">E-mail</div>
-                                        <div class="fw-semibold">{{ auth()->user()->email }}</div>
+                                        <div class="fw-semibold profile-email">{{ auth()->user()->email }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="text-muted small">E-mail</div>
-                                                <div class="fw-semibold">{{ auth()->user()->email }}</div>
+                                                <div class="fw-semibold profile-email">{{ auth()->user()->email }}</div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="text-muted small">Telefone</div>
