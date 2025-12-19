@@ -103,21 +103,65 @@
     <div id="sidebar-backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden" onclick="toggleSidebar()" aria-hidden="true"></div>
 
     <script>
-        function toggleSidebar(){
-            var aside = document.getElementById('sidebar-multi-level-sidebar');
-            var backdrop = document.getElementById('sidebar-backdrop');
-            if(!aside) return;
-            var isHidden = aside.classList.contains('-translate-x-full');
-            if(isHidden){
-                aside.classList.remove('-translate-x-full');
-                aside.setAttribute('aria-hidden','false');
-                if(backdrop) backdrop.classList.remove('hidden');
-            } else {
-                aside.classList.add('-translate-x-full');
-                aside.setAttribute('aria-hidden','true');
-                if(backdrop) backdrop.classList.add('hidden');
-            }
-        }
+      function toggleSidebar(){
+         var aside = document.getElementById('sidebar-multi-level-sidebar');
+         var backdrop = document.getElementById('sidebar-backdrop');
+         if(!aside) return;
+         var isHidden = aside.classList.contains('-translate-x-full');
+         if(isHidden){
+            // move to body to avoid fixed positioning being clipped by transformed ancestors
+            try{
+               if(aside.parentElement && aside.parentElement !== document.body){
+                  window._sidebarOriginal = {
+                     parent: aside.parentElement,
+                     nextSibling: aside.nextElementSibling
+                  };
+                  document.body.appendChild(aside);
+               }
+            }catch(e){}
+
+            aside.classList.remove('-translate-x-full');
+            aside.classList.add('full-width');
+            aside.setAttribute('aria-hidden','false');
+            // force full-screen inline styles as backup
+            aside.style.position = 'fixed';
+            aside.style.top = '0';
+            aside.style.left = '0';
+            aside.style.right = '0';
+            aside.style.bottom = '0';
+            aside.style.width = '100%';
+            aside.style.height = '100vh';
+            aside.style.zIndex = '2147483600';
+            if(backdrop) backdrop.classList.remove('hidden');
+            document.body.classList.add('sidebar-open');
+         } else {
+            aside.classList.add('-translate-x-full');
+            aside.classList.remove('full-width');
+            aside.setAttribute('aria-hidden','true');
+            if(backdrop) backdrop.classList.add('hidden');
+            document.body.classList.remove('sidebar-open');
+            // remove inline styles
+            try{
+               aside.style.position = '';
+               aside.style.top = '';
+               aside.style.left = '';
+               aside.style.right = '';
+               aside.style.bottom = '';
+               aside.style.width = '';
+               aside.style.height = '';
+               aside.style.zIndex = '';
+            }catch(e){}
+            // restore to original parent if moved
+            try{
+               if(window._sidebarOriginal && window._sidebarOriginal.parent){
+                  var orig = window._sidebarOriginal;
+                  if(orig.nextSibling) orig.parent.insertBefore(aside, orig.nextSibling);
+                  else orig.parent.appendChild(aside);
+                  delete window._sidebarOriginal;
+               }
+            }catch(e){}
+         }
+      }
 
         // Collapse toggles
         document.addEventListener('DOMContentLoaded', function(){
