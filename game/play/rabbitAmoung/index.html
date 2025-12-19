@@ -248,7 +248,7 @@ body {
   justify-content: center;
   align-items: center;
   user-select: none;
-  background-image: url(../svg/among-us-space.svg);
+  background-image: url(among-us-space.svg);
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -324,7 +324,7 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url(../svg/frame.svg);
+  background-image: url(frame.svg);
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -356,7 +356,7 @@ h1 {
   width: 38px;
   border-radius: 50%;
   border: solid 5px #202020;
-  background-image: url(../svg/led.svg);
+  background-image: url(led.svg);
   background-size: contain;
   box-shadow: -2px 7px #827e7f;
 }
@@ -395,7 +395,7 @@ h1 {
 
 .ledOn {
   border: solid 5px #202020;
-  background-image: url(../svg/ledgreen.svg);
+  background-image: url(ledgreen.svg);
   background-size: contain;
 }
 
@@ -459,7 +459,7 @@ h1 {
 @keyframes errorLed {
   to {
     border: solid 5px #202020;
-    background-image: url(../svg/ledred.svg);
+    background-image: url(ledred.svg);
   }
 }
 
@@ -474,7 +474,7 @@ h1 {
 @keyframes completeLed {
   to {
     border: solid 5px #202020;
-    background-image: url(../svg/ledgreen.svg);
+    background-image: url(ledgreen.svg);
   }
 }
 
@@ -590,7 +590,7 @@ h1 {
         
         loadAudio(filename) {
 
-            const file = `./audio/${filename}?cb=${new Date().getTime()}`
+            const file = `${filename}?cb=${new Date().getTime()}`
             const audio = new Audio(file)
             audio.load()
             return audio
